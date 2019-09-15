@@ -18,22 +18,37 @@ public class ListNode {
 
 class Solution {
     public ListNode swapPairs(ListNode head) {
-        ListNode leftNode = new ListNode(-1);
-        ListNode rightNode = new ListNode(-1);
-        ListNode tNode = new ListNode(-1);
-        tNode.next = head;
+        /**
+         * 非递归
+         */
+        ListNode dummyNode = new ListNode(-1);
+        dummyNode.next = head;
+        ListNode p = dummyNode;
 
-        leftNode=tNode;
+        while (p.next != null && p.next.next != null) {
+            ListNode node1 = p.next;
+            ListNode node2 = node1.next;
+            ListNode next = node2.next;
 
-        rightNode.next = head.next;
+            node2.next = node1;
+            node1.next = next;
+            p.next = node2;
+            p = node1;
+        }
 
-        tNode.next = rightNode.next;
-        leftNode.next = rightNode.next.next;
-        rightNode.next = head;
-        rightNode.next.next = leftNode.next;
-        rightNode.next = leftNode.next.next;
-
-        return tNode;
+        return dummyNode.next;
+        /*递归做法
+        //http://lylblog.cn/blog/4
+        //终止条件，只有一个或者没有的时候
+        if (head != null && head.next != null) {
+            //在本层中需要做的是交换head，和tHead。有三个结点 head，tHead，swapPairs（tHead.next）
+            ListNode tHead = head.next;
+            head.next=swapPairs(tHead.next);
+            tHead.next=head;
+            //给上一层的返回值是已经处理好的结点，即tHead。
+            return tHead;
+        }
+        return head;*/
     }
 }
 

@@ -50,6 +50,28 @@ class Solution {
         }
         return head;*/
     }
+
+    public int maxIncreaseKeepingSkyline(int[][] grid) {
+        //每行最大值
+        int[] r = new int[50];
+        for (int i = 0; i < 50; i++) {
+            r[i] = 0;
+        }
+        //每列最大值
+        int[] c = new int[50];
+        for (int i = 0; i < 50; i++) {
+            c[i] = 0;
+        }
+
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] > c[i]) {
+                    r[i] = grid[i][j];
+                }
+            }
+        }
+        return 1;
+    }
 }
 
 

@@ -70,6 +70,16 @@ class Solution {
                 }
             }
         }
+
+        for (int j = 0; j < grid[0].length; j++) {
+            for (int i = 0; i < grid.length; i++) {
+                if(grid[i][j]>c[j]){
+                    c[j]=grid[i][j];
+                }
+            }
+        }
+
+
         return 1;
     }
 }

@@ -25,4 +25,14 @@ public class Line extends Figure{
     public String toString() {
         return super.toString();
     }
+
+    @Override
+    public void revolve(int angle) {
+
+    }
+
+    @Override
+    public void zoom(int percentage) {
+
+    }
 }

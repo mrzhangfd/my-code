@@ -18,7 +18,8 @@ public class AverageImpl implements Average {
                 throw new StringFormatException("格式错误。");
             }
 
-            return 0;
+
         }
+        return 0;
     }
 }

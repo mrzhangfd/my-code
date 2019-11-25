@@ -1,4 +1,4 @@
-package javacourse.test4.chapter4;
+package javacourse.test3.chapter4;
 
 /**
  * 计算体积

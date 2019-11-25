@@ -1,4 +1,4 @@
-package javacourse.test3;
+package javacourse.test2;
 
 /**
  * Figure图形抽象类

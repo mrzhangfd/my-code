@@ -1,4 +1,4 @@
-package javacourse.test4.chapter4;
+package javacourse.test3.chapter4;
 
 /**
  * 求所有元素的平均值
@@ -15,5 +15,11 @@ public class AverageAll implements Averageable{
     @Override
     public double average(double[] value) {
         return 0;
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println(System.currentTimeMillis()
+        );
     }
 }

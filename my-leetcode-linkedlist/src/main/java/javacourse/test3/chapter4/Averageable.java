@@ -1,4 +1,4 @@
-package javacourse.test4.chapter4;
+package javacourse.test3.chapter4;
 
 /**
  * 求平均值接口

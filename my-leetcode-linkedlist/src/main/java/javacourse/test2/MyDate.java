@@ -1,4 +1,4 @@
-package javacourse.test3;
+package javacourse.test2;
 
 public class MyDate {
     private int year, month, day;

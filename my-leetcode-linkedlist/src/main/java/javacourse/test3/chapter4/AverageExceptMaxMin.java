@@ -1,4 +1,4 @@
-package javacourse.test4.chapter4;
+package javacourse.test3.chapter4;
 
 /**
  * 去掉最大值和最小值，再求平均值

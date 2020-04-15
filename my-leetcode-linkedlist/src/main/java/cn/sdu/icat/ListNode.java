@@ -1,5 +1,7 @@
 package cn.sdu.icat;
 
+import java.util.Stack;
+
 /**
  * Definition for singly-linked list.
  *
@@ -19,8 +21,35 @@ public class ListNode {
 class Solution {
 
 
-    public static void main(String[] args) {
-        int[][] grid = new int[][]{{3, 0, 8, 4}, {2, 4, 5, 7}, {9, 2, 6, 3}, {0, 3, 1, 0}};
+    Stack<Integer> stack1 = new Stack<Integer>();
+    Stack<Integer> stack2 = new Stack<Integer>();
+
+    public void push(int node) {
+        stack1.push(node);
+    }
+
+    public int pop() {
+        while (!stack1.isEmpty()) {
+            int tmp = stack1.pop();
+            stack2.push(tmp);
+        }
+        Integer res = stack2.pop();
+        while (!stack2.isEmpty()) {
+            int tmp = stack1.pop();
+            stack1.push(tmp);
+        }
+
+        return res;
+    }
+
+    public boolean Find(int target, int[][] array) {
+        if (array == null) {
+            return false;
+        }
+        int rowNum = array.length;
+        int colNum = array[0].length;
+        
+        return true;
     }
 }
 

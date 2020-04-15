@@ -50,6 +50,46 @@ public class Test1 {
         return num;
     }
 
+
+    /**
+     * 矩形覆盖
+     * @param target
+     * @return
+     */
+    public int RectCover(int target) {
+        if(target==0){
+            return 0;
+        }else if (target==1){
+            return 1;
+        }else if (target==2){
+            return 2;
+        }
+        else {
+            int res=RectCover(target-1)+RectCover(target-2);
+            return res;
+        }
+
+    }
+
+    /**
+     * 跳台阶
+     * @param target
+     * @return
+     */
+    public int JumpFloor(int target) {
+        if(target==0){
+            return 0;
+        } else if (target==1) {
+            return 1;
+        }else if(target==2){
+            return 2;
+        }else {
+            int res=JumpFloor(target-1)+JumpFloor(target-2);
+            return res;
+        }
+
+    }
+
     public static void main(String[] args) {
         String s = "abcd";
         char[] chars = s.toCharArray();

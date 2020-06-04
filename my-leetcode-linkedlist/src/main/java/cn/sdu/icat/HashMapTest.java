@@ -11,8 +11,11 @@ public class HashMapTest {
     public HashMapTest() {
     }
 
-    public int lengthOfLongestSubstring(String s) {
-
-        return 0;
+    public static void main(String[] args) {
+        int l=1;
+        int h=2;
+        int m=l+(h-l)/2;
+        m=(l+h)/2;
+        System.out.println(m);
     }
 }

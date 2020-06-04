@@ -231,4 +231,14 @@ public class TreeNode {
 
     }
 
+    /**
+     * 783. 二叉搜索树结点最小距离
+     * @param root
+     * @return
+     */
+    public int minDiffInBST(TreeNode root) {
+        int minDiff=0;
+        return  1;
+    }
+
 }

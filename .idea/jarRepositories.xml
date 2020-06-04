@@ -9,11 +9,7 @@
     <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
-<<<<<<< HEAD
       <option name="url" value="http://maven.aliyun.com/nexus/content/groups/public" />
-=======
-      <option name="url" value="http://maven.aliyun.com/nexus/content/groups/public/" />
->>>>>>> 0f41cee6cde1113009265d6b038fe0b4c61748ef
     </remote-repository>
     <remote-repository>
       <option name="id" value="jboss.community" />

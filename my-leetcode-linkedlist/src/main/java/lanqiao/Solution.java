@@ -164,9 +164,6 @@ public class Solution {
         //int[] nums = {5, 7, 7, 8, 8, 10};
         int[] nums = new int[]{3, 4, 5, 1, 2};
         int target = 7;
-        //System.out.println(solution.findLeft(nums, target));
-        //System.out.println(solution.findRight(nums, target));
-        //System.out.println(solution.findMin(nums));
         char a = 'a';
         System.out.println(Integer.valueOf(9));
     }

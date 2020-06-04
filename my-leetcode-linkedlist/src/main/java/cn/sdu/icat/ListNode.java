@@ -16,12 +16,7 @@ public class ListNode {
     ListNode(int x) {
         val = x;
     }
-}
 
-
-
-<<<<<<< HEAD
-=======
     Stack<Integer> stack1 = new Stack<Integer>();
     Stack<Integer> stack2 = new Stack<Integer>();
 
@@ -49,10 +44,10 @@ public class ListNode {
         }
         int rowNum = array.length;
         int colNum = array[0].length;
-        
+
         return true;
     }
 }
->>>>>>> 0f41cee6cde1113009265d6b038fe0b4c61748ef
+
 
 

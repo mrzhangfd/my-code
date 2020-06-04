@@ -28,6 +28,34 @@ public class Backtrack {
 
     }
 
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> tempList = new ArrayList<>();
+
+        backtrack1(candidates, target, 0, res, tempList);
+        return res;
+
+    }
+
+    private void backtrack1(int[] candidates, int target, int start, List<List<Integer>> res, List<Integer> tempList) {
+        if (candidates == null) {
+            return;
+        }
+        if (target < 0) {
+            return;
+        }
+        if (target == 0) {
+            res.add(new ArrayList<>(tempList));
+            return;
+        }
+
+        for (int i = start; i < candidates.length; i++) {
+            tempList.add(candidates[i]);
+            backtrack1(candidates, target - candidates[i], i + 1, res, tempList);
+            tempList.remove(tempList.size() - 1);
+        }
+    }
+
     public static void main(String[] args) {
         Backtrack backtrack = new Backtrack();
 

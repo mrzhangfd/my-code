@@ -124,7 +124,9 @@ public class Solution {
                     negative = true;
                     limit = Integer.MIN_VALUE;//在负号的情况下，判断溢出的值就变成了 整数的 最小负数了
                 } else if (firstChar != '+')//第一位不是数字和-只能是+
+                {
                     return 0;
+                }
                 if (len == 1) // Cannot have lone "+" or "-"
                 {
                     return 0;

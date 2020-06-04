@@ -157,10 +157,6 @@ public class Solution {
         return negative ? result : -result;
     }
 
-    public int cutRope(int target) {
-
-    }
-
 
 
     public static void main(String[] args) throws IOException {

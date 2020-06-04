@@ -2,7 +2,6 @@ package cn.sdu.icat;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 /**
  * 969 煎饼排序

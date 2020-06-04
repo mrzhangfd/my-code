@@ -37,6 +37,26 @@ public class LeetCode {
         return paLouti(n - 1) + paLouti(n - 2);
     }
 
+    //3.无重复字符的最长子串
+    public int lengthOfLongestSubstring(String s) {
+        if(s.length() == 1){
+            return 1;
+        }
+        int start, end;
+        int ans = 0;
+        Map<Character, Integer> charMap = new HashMap<>();
+        for (start = 0, end = 0; end <s.length(); end++) {
+            char ch=s.charAt(end);
+            if (charMap.containsKey(ch)) {
+                start = Math.max(end+1,charMap.get(ch));
+            }
+            ans=Math.max(end-start+1,ans);
+            charMap.put(s.charAt(end), end+1);
+
+        }
+        return ans;
+    }
+
     public boolean isValidBST(TreeNode root) {
         return valid(root, null, null);
     }
@@ -393,17 +413,52 @@ public class LeetCode {
         return pq.peek();
     }
 
-    public static void main(String[] args) {
-        LeetCode leetCode = new LeetCode();
-        int[] test = {3, 2, 1, 5, 6, 4};
-        int[] test1={4,5,6,0,0,0};
-        int[] test2={1,2,3};
-        int m=3;
-        int n=3;
-        int k = 2;
-        leetCode.merge(test1,m,test2,n);
-        //System.out.println(leetCode.findKthLargest(test, 2));
+    //141
+    public boolean hasCycle(ListNode head) {
+        ListNode node1, node2;
+        if (head == null) {
+            return false;
+        }
+        node1 = head;
+        node2 = head.next;
+        while (node1 != null && node2 != null) {
+            if (node1.val == node2.val) {
+                return true;
+            }
+            node1 = node1.next;
+            node2 = node2.next.next;
+
+        }
+        return false;
+
     }
 
+
+    public int maxSubArray(int[] nums) {
+        int res = nums[0];
+        int sum = 0;
+        for (int num : nums) {
+            if (sum > 0) {
+                sum += num;
+            } else {
+                sum = num;
+            }
+            res = Math.max(res, sum);
+        }
+        return res;
+    }
+
+
+    public static void main(String[] args) {
+        /*LeetCode leetCode = new LeetCode();
+        int[] test = {3, 2, 1, 5, 6, 4};
+        int[] test1 = {4, 5, 6, 0, 0, 0};
+        int[] test2 = {1, 2, 3};
+        int m = 3;
+        int n = 3;
+        int k = 2;
+        leetCode.merge(test1, m, test2, n);*/
+        //System.out.println(leetCode.findKthLargest(test, 2));
+    }
 
 }

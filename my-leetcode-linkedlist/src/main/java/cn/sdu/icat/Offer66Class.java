@@ -1,9 +1,7 @@
 package cn.sdu.icat;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.text.DecimalFormat;
+import java.util.*;
 
 /**
  * 剑指offer66
@@ -317,16 +315,179 @@ public class Offer66Class {
         }
     }
 
+    public int[] multiply(int[] A) {
+        int[] B = new int[A.length];
+        for (int i = 0; i < B.length - 1; i++) {
+            B[i] = 1;
+        }
+        for (int i = 1; i <= A.length - 1; i++) {
+            B[0] = A[i] * B[0];
+        }
+        for (int i = 1; i <= A.length - 1; i++) {
+            for (int j = 0; j <= A.length - 1; j++) {
+                if (j == i) {
+                    continue;
+                }
+                B[i] = A[j] * B[i];
+            }
+        }
+        return B;
+    }
+
+    //和为S的两个数字
+    public ArrayList<Integer> FindNumbersWithSum(int[] array, int sum) {
+        ArrayList<Integer> ret = new ArrayList<>();
+        int minNum = Integer.MAX_VALUE;
+        int[] B = new int[2];
+        int i = 0, j = array.length - 1;
+        while (i < j) {
+            if (array[i] + array[j] == sum) {
+                int temp = array[i] * array[j];
+                if (temp < minNum) {
+                    minNum = temp;
+                    B[0] = array[i];
+                    B[1] = array[j];
+                }
+            }
+            if (array[i] + array[j] < sum) {
+                i++;
+            } else {
+                j--;
+            }
+        }
+        if (B[1] + B[2] != sum) {
+            return new ArrayList<>();
+        }
+        Arrays.sort(B);
+        ret.add(B[0]);
+        ret.add(B[1]);
+        return ret;
+
+    }
+
+
+    public ArrayList<Integer> printMatrix(int[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return null;
+        }
+        ArrayList<Integer> list = new ArrayList<>();
+        int rowNum = matrix.length;
+        int colNum = matrix[0].length;
+        int up = 0;
+        int down = rowNum - 1;
+        int right = colNum - 1;
+        int left = 0;
+        while (list.size() <= rowNum * colNum) {
+            for (int col = left; col <= right; col++) {
+                list.add(matrix[up][col]);
+            }
+            up++;
+            if (up > down) {
+                break;
+            }
+            for (int row = up; row <= down; row++) {
+                list.add(matrix[row][right]);
+            }
+            right--;
+            if (right < left) {
+                break;
+            }
+            for (int col = right; col >= left; col--) {
+                list.add(matrix[down][col]);
+            }
+            down--;
+            if (down < up) {
+                break;
+            }
+            for (int row = down; row >= up; row--) {
+                list.add(matrix[row][left]);
+            }
+            left++;
+            if (left > right) {
+                break;
+            }
+        }
+        return list;
+    }
+
+    public int GetNumberOfK(int[] array, int k) {
+        int length = array.length;
+        if (array.length == 0 || array[0] > k || array[length - 1] < k) {
+            return 0;
+        }
+        int num = 0;
+        for (int i = 0; i < length; i++) {
+            if (array[i] != k) {
+                continue;
+            }
+            num++;
+            if (array[i] > k) {
+                break;
+            }
+        }
+        return num;
+
+    }
+
+    public int InversePairs(int[] array) {
+        int count = 0;
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (array[j] > array[i]) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    public ArrayList<Integer> maxInWindows(int[] num, int size) {
+        ArrayList<Integer> list = new ArrayList<>();
+        if (num == null || num.length < size) {
+            return list;
+        }
+        //队列头部存的是当前窗口的最大值的下标
+        LinkedList<Integer> linkedList = new LinkedList<>();
+        for (int i = 0; i < num.length; i++) {
+            while (!linkedList.isEmpty() && num[linkedList.peekLast()] < num[i]) {
+                linkedList.pollLast();
+            }
+            linkedList.add(i);
+            if (linkedList.peekFirst() <= (i - size)) {
+                linkedList.pollFirst();
+            }
+            if (i >= size - 1) {
+                list.add(num[linkedList.peekFirst()]);
+            }
+        }
+        return list;
+    }
+
+   /* public ArrayList<ArrayList<Integer>> FindContinuousSequence(int sum) {
+        //最少两个数
+        //100 也就是49+51
+        DecimalFormat df=new DecimalFormat("0.0");//设置保留位数
+        int n = 2;
+        ArrayList<ArrayList<Integer>> ret = new ArrayList<>();
+        ArrayList<Integer> tmp = new ArrayList<>();
+        for (n = 2; n < sum / 2; n++) {
+            String num=df.format((float) sum/n);
+            if(n/2==0){
+                if(num.substring(2,2)=="5"){
+                    tmp.add()
+                }
+            }
+
+        }
+    }*/
+
 
 
     public static void main(String[] args) {
-        int[] array = {1, 2, 3, 4, 2, 3};
-        int num1[] = {0};
-        int num2[] = {0};
         Offer66Class offer66Class = new Offer66Class();
-        //offer66Class.FindNums(array, num1, num2);
-        System.out.println(offer66Class.ReverseSentence(""));
-
+        int[] num = {2, 3, 4, 2, 6, 2, 5, 1};
+        int size = 3;
+        System.out.println(offer66Class.maxInWindows(num, size));
     }
 }
 

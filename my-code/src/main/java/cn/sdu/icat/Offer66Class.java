@@ -481,13 +481,237 @@ public class Offer66Class {
         }
     }*/
 
+    /**
+     * 二叉搜索树与双向链表
+     * 思路：定义一个链表的尾节点，递归处理左右子树，最后返回链表的头节点
+     * https://blog.csdn.net/baiye_xing/article/details/78428347
+     *
+     * @param pRootOfTree
+     * @return
+     */
+    public TreeNode Convert(TreeNode pRootOfTree) {
+        //lastNode 链表的尾结点
+        TreeNode lastNode = converHelper(pRootOfTree, null);
+        TreeNode pHead = lastNode;
+        while (pHead != null && pHead.left != null) {
+            pHead = pHead.left;
+        }
+        return pHead;
+    }
+
+    private TreeNode converHelper(TreeNode root, TreeNode lastNode) {
+        if (root == null) {
+            return null;
+        }
+        TreeNode cur = root;
+        if (cur.left != null) {
+            lastNode = converHelper(cur.left, lastNode);
+        }
+        cur.left = lastNode;
+        if (lastNode != null) {
+            lastNode.right = cur;
+        }
+        lastNode = cur;
+        if (cur.right != null) {
+            lastNode = converHelper(cur.right, lastNode);
+        }
+        return lastNode;
+    }
+
+    /**
+     * 字符串的排列
+     *
+     * @param str
+     * @return
+     */
+    public ArrayList<String> Permutation(String str) {
+        ArrayList<String> res = new ArrayList<>();
+        char[] chars = str.toCharArray();
+        backtrackStr(0, chars, res);
+        Collections.sort(res);
+        return res;
+    }
+
+    private void backtrackStr(int start, char[] chars, ArrayList<String> res) {
+        if (start == chars.length - 1) {
+            String ss = String.valueOf(chars);
+            System.out.println(ss);
+            if (!res.contains(ss)) {
+                res.add(ss);
+            }
+            return;
+        }
+        for (int i = start; i < chars.length; i++) {
+            swap(chars, start, i);
+            backtrackStr(start + 1, chars, res);
+            swap(chars, start, i);
+        }
+    }
+
+    private void swap(char[] chars, int i, int j) {
+        char t = chars[i];
+        chars[i] = chars[j];
+        chars[j] = t;
+    }
+
+
+    /**
+     * 数组中出现次数超过一半的数字
+     *
+     * @param array
+     * @return
+     */
+    public int MoreThanHalfNum_Solution(int[] array) {
+        HashMap<Integer, Integer> hashMap = new HashMap<>();
+        for (int i = 0; i < array.length; i++) {
+            if (hashMap.containsKey(array[i])) {
+                hashMap.put(array[i], hashMap.get(array[i]) + 1);
+            } else {
+                hashMap.put(array[i], 1);
+            }
+            if (hashMap.get(array[i]) * 2 > array.length) {
+                return array[i];
+            }
+        }
+        return 0;
+
+    }
+
+    /**
+     * 连续子数组的最大和
+     * 使用动态规划
+     * 链接：https://www.nowcoder.com/questionTerminal/459bd355da1549fa8a49e350bf3df484?f=discussion
+     * 来源：牛客网
+     * <p>
+     * dp[i]表示以元素array[i]结尾的最大连续子数组和.
+     * 以[-2,-3,4,-1,-2,1,5,-3]为例
+     * 可以发现,
+     * dp[0] = -2
+     * dp[1] = -3
+     * dp[2] = 4
+     * dp[3] = 3
+     * 以此类推,会发现
+     * dp[i] = max{dp[i-1]+array[i],array[i]}.
+     *
+     * @param array
+     * @return
+     */
+    public int FindGreatestSumOfSubArray(int[] array) {
+        int[] dp = new int[array.length];
+        dp[0] = array[0];
+        int max = array[0];
+        for (int i = 1; i < array.length; i++) {
+            dp[i] = Math.max(array[i] + dp[i - 1], array[i]);
+            if (max < dp[i]) {
+                max = dp[i];
+            }
+        }
+        return max;
+
+    }
+
+
+    /**
+     * 重建二叉树
+     *
+     * @param pre
+     * @param in
+     * @return
+     */
+    public TreeNode reConstructBinaryTree(int[] pre, int[] in) {
+        if (pre == null || in == null) {
+            return null;
+        }
+        TreeNode root = reConstructBinTreeHelper(pre, 0, pre.length - 1, in, 0, in.length - 1);
+        return null;
+    }
+
+    /**
+     * @param pre
+     * @param in
+     * @param
+     */
+    TreeNode reConstructBinTreeHelper(int[] pre, int preStart, int preEnd, int[] in, int inStart, int inEnd) {
+
+      return null;
+
+    }
 
 
     public static void main(String[] args) {
         Offer66Class offer66Class = new Offer66Class();
         int[] num = {2, 3, 4, 2, 6, 2, 5, 1};
         int size = 3;
-        System.out.println(offer66Class.maxInWindows(num, size));
+        System.out.println(offer66Class.Permutation("abc"));
+    }
+
+    private void fun(char[] ch, List<String> list, int i) {
+        //这是递归的终止条件，就是i下标已经移到char数组的末尾的时候，考虑添加这一组字符串进入结果集中
+        if (i == ch.length - 1) {
+            //判断一下是否重复
+            if (!list.contains(new String(ch))) {
+                list.add(new String(ch));
+                return;
+            }
+        } else {
+            //这一段就是回溯法，这里以"abc"为例
+
+            //递归的思想与栈的入栈和出栈是一样的,某一个状态遇到return结束了之后，会回到被调用的地方继续执行
+
+            //1.第一次进到这里是ch=['a','b','c'],list=[],i=0，我称为 状态A ，即初始状态
+            //那么j=0，swap(ch,0,0)，就是['a','b','c']，进入递归，自己调自己，只是i为1，交换(0,0)位置之后的状态我称为 状态B
+            //i不等于2，来到这里，j=1，执行第一个swap(ch,1,1)，这个状态我称为 状态C1 ,再进入fun函数，此时标记为T1，i为2，那么这时就进入上一个if，将"abc"放进list中
+            /////////////-------》此时结果集为["abc"]
+
+            //2.执行完list.add之后，遇到return，回退到T1处，接下来执行第二个swap(ch,1,1)，状态C1又恢复为状态B
+            //恢复完之后，继续执行for循环，此时j=2,那么swap(ch,1,2),得到"acb"，这个状态我称为C2,然后执行fun，此时标记为T2,发现i+1=2,所以也被添加进结果集，此时return回退到T2处往下执行
+            /////////////-------》此时结果集为["abc","acb"]
+            //然后执行第二个swap(ch,1,2)，状态C2回归状态B,然后状态B的for循环退出回到状态A
+
+            //             a|b|c(状态A)
+            //               |
+            //               |swap(0,0)
+            //               |
+            //             a|b|c(状态B)
+            //             /  \
+            //   swap(1,1)/    \swap(1,2)  (状态C1和状态C2)
+            //           /      \
+            //         a|b|c   a|c|b
+
+            //3.回到状态A之后，继续for循环，j=1,即swap(ch,0,1)，即"bac",这个状态可以再次叫做状态A,下面的步骤同上
+            /////////////-------》此时结果集为["abc","acb","bac","bca"]
+
+            //             a|b|c(状态A)
+            //               |
+            //               |swap(0,1)
+            //               |
+            //             b|a|c(状态B)
+            //             /  \
+            //   swap(1,1)/    \swap(1,2)  (状态C1和状态C2)
+            //           /      \
+            //         b|a|c   b|c|a
+
+            //4.再继续for循环，j=2,即swap(ch,0,2)，即"cab",这个状态可以再次叫做状态A，下面的步骤同上
+            /////////////-------》此时结果集为["abc","acb","bac","bca","cab","cba"]
+
+            //             a|b|c(状态A)
+            //               |
+            //               |swap(0,2)
+            //               |
+            //             c|b|a(状态B)
+            //             /  \
+            //   swap(1,1)/    \swap(1,2)  (状态C1和状态C2)
+            //           /      \
+            //         c|b|a   c|a|b
+
+            //5.最后退出for循环，结束。
+
+            for (int j = i; j < ch.length; j++) {
+                swap(ch, i, j);
+                fun(ch, list, i + 1);
+                swap(ch, i, j);
+            }
+        }
     }
 }
 

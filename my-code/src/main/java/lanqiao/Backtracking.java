@@ -3,13 +3,16 @@ package lanqiao;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /**
  * @author icatzfd
  * Created on 2020/5/31 16:36.
  */
-public class Backtrack {
+public class Backtracking {
+    public Backtracking() {
+    }
 
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
@@ -17,14 +20,14 @@ public class Backtrack {
         return res;
     }
 
-    private void backtrack(int start, int[] nums, List<List<Integer>> res, ArrayList<Integer> temlist) {
+    private void backtrack(int start, int[] nums, List<List<Integer>> res, ArrayList<Integer> tempList) {
 
-        res.add(new ArrayList<>(temlist));
+        res.add(new ArrayList<>(tempList));
 
         for (int i = start; i < nums.length; i++) {
-            temlist.add(nums[i]);
-            backtrack(i + 1, nums, res, temlist);
-            temlist.remove(temlist.size() - 1);
+            tempList.add(nums[i]);
+            backtrack(i + 1, nums, res, tempList);
+            tempList.remove(tempList.size() - 1);
         }
 
     }
@@ -120,22 +123,112 @@ public class Backtrack {
                 break;
             }
             tempList.add(i);
-
             backtrack3(n, i + 1, target - i, resnum - 1, res, tempList);
             tempList.remove(tempList.size() - 1);
         }
     }
 
-    public static void main(String[] args) {
-        Backtrack backtrack = new Backtrack();
+    /**
+     * leetcode 46 全排列
+     *
+     * @param nums
+     * @return
+     */
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> tempList = new ArrayList<>();
+        if (nums == null) {
+            return null;
+        }
 
-        int[] nums = {7, 2, 3, 6};
-        //System.out.println(backtrack.combinationSum(nums, 7));
-        System.out.println(backtrack.combinationSum3(3, 7));
+        permuteHelper(nums, 0, res, tempList);
+        return res;
+    }
+
+    private void permuteHelper(int[] nums, int start, List<List<Integer>> res, List<Integer> tempList) {
+        if (tempList.size() == nums.length) {
+            res.add(new ArrayList<>(tempList));
+            return;
+        }
+
+        for (int i = start; i < nums.length; i++) {
+            // swap(start,i,nums);
+            if (tempList.contains(nums[i])) {
+                continue;
+            }
+            tempList.add(nums[i]);
+            permuteHelper(nums, 0, res, tempList);
+            tempList.remove(tempList.size() - 1);
+            // swap(start,i,nums);
+        }
+    }
+
+    /**
+     * 784 字母大小写全排列
+     *
+     * @param S
+     * @return
+     */
+    public List<String> letterCasePermutation(String S) {
+        List<String> ret = new ArrayList<>();
+        letterCasePermutationHelper(S.toCharArray(), 0, ret);
+        return ret;
+
+    }
+
+    private void letterCasePermutationHelper(char[] chars, int start, List<String> ret) {
+
+        boolean flag=false;
+        if(ret.contains(new String(chars))){
+            return;
+        }
+        if (start == chars.length - 1 ) {
+            if(flag){
+                ret.add(new String(chars));
+                return;
+            }else {
+                return;
+            }
+
+
+        }
+        for (int i = start; i < chars.length; i++) {
+            if (chars[i] >= '0' && chars[i] <= '9') {
+                continue;
+            }
+
+            letterCasePermutationHelper(chars, start + 1, ret);
+            if (chars[i] - 'a' < 0) {
+                flag=true;
+                chars[i] = (char) (chars[i] + 32);
+            } else {
+                flag=true;
+                chars[i] = (char) (chars[i] - 32);
+            }
+            letterCasePermutationHelper(chars, start + 1, ret);
+        }
+
     }
 
 
+    public static void main(String[] args) {
+        Backtracking backtrack = new Backtracking();
 
+        int[] nums = {1, 2, 3};
+        char a = 'a';
+        char A = 'A';
+        char ss = 'A' + 32;
+        System.out.println(backtrack.letterCasePermutation("a1b2"));
+
+        //System.out.println(nums);
+        //System.out.println(backtrack.combinationSum(nums, 7));
+        //System.out.println(backtrack.combinationSum3(3, 7));
+        //System.out.println(backtrack.permute(nums));
+        //System.out.println(backtrack.subsets(nums));
+    }
+
+
+}
 
     /*public boolean exist(char[][] board, String word) {
         boolean[][] visited = new boolean[board.length][board[0].length];
@@ -168,4 +261,4 @@ public class Backtrack {
         visited[i][j] = false; // 回溯
         return false;
     }*/
-}
+

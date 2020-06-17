@@ -49,11 +49,39 @@ public class Test969 {
         return pos;
     }
 
+    // 113 路径总和2
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> tempList = new ArrayList<>();
+        pathSum2Helper(res, tempList, root, sum);
+        return res;
+    }
+
+    private void pathSum2Helper(List<List<Integer>> res, List<Integer> tempList, TreeNode root, int target) {
+        if (root==null){
+            return;
+        }
+        if (target < 0 || root.val > target) {
+            return;
+        }
+        tempList.add(root.val);
+        if (root.left == null && root.right == null && target == root.val) {
+            res.add(new ArrayList<>(tempList));
+
+            return;
+        }
+
+        pathSum2Helper(res, tempList, root.left, target - root.val);
+        pathSum2Helper(res, tempList, root.right, target - root.val);
+        tempList.remove(tempList.size()-1);
+    }
+
     public static void main(String[] args) {
         Test969 test969 = new Test969();
         int[] A = new int[]{1, 3, 4, 5, 7};
         //int [] B=test969.reverse(4,A);
         //System.out.println(test969.findMax(A));
+
     }
 
 }

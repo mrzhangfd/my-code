@@ -9,8 +9,6 @@ import java.util.*;
  * Created on 2019/9/26 0:43.
  */
 
-
-//Definition for a binary tree node.
 public class TreeNode {
     int val;
     TreeNode left = null;
@@ -20,37 +18,6 @@ public class TreeNode {
         val = x;
     }
 
-    /**
-     * 113 路径总和 II
-     *
-     * @param root
-     * @param sum
-     * @return 从根节点到叶子节点，路径上的值总和为sum的节点 列表
-     */
-    public List<List<Integer>> pathSum(TreeNode root, int sum) {
-        List<List<Integer>> ans = new ArrayList<>();
-
-        List<Integer> path = new ArrayList<>();
-        path.add(root.val);
-
-        return ans;
-    }
-
-    public boolean preOrderHelper(TreeNode root, int sum, List<Integer> path) {
-        if (root == null) {
-            return false;
-        }
-        path.add(root.val);
-        sum = sum - root.val;
-        if (root.left == null && root.right == null && sum == 0) {
-            if (sum != 0) {
-                path.remove(root.val);
-            }
-            return sum == 0;
-        }
-
-        return hasPathSum(root.left, sum) || hasPathSum(root.right, sum);
-    }
 
     /**
      * 112 路径总和
@@ -169,17 +136,16 @@ public class TreeNode {
      */
     public List<Integer> preorderTraversalByStack(TreeNode root) {
         List<Integer> res = new ArrayList<>();
-        if(root==null){
+        if (root == null) {
             return res;
         }
-        Stack<TreeNode> stack=new Stack<>();
+        Stack<TreeNode> stack = new Stack<>();
         stack.push(root);
-        while (!stack.isEmpty()){
+        while (!stack.isEmpty()) {
             stack.push(root.left);
         }
         return res;
     }
-
 
 
     /**
@@ -233,12 +199,64 @@ public class TreeNode {
 
     /**
      * 783. 二叉搜索树结点最小距离
+     *
      * @param root
      * @return
      */
     public int minDiffInBST(TreeNode root) {
-        int minDiff=0;
-        return  1;
+        int minDiff = 0;
+        return 1;
     }
+
+    // 找到从根节点到叶子节点的所有路径 ，使用递归
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> res = new ArrayList<>();
+        binaryTreePathsHelper(root, res, "");
+        return res;
+    }
+
+    private void binaryTreePathsHelper(TreeNode node, List<String> res, String path) {
+        if (node == null) {
+            return;
+        }
+        path += Integer.toString(node.val);
+        if (node.left == null && node.right == null) {
+            res.add(path);
+            return;
+        }
+        path += "->";
+        binaryTreePathsHelper(node.left, res, path);
+        binaryTreePathsHelper(node.right, res, path);
+
+    }
+
+    // 113 路径总和2
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> tempList = new ArrayList<>();
+        pathSum2Helper(res, tempList, root, sum);
+        return res;
+    }
+
+    private void pathSum2Helper(List<List<Integer>> res, List<Integer> tempList, TreeNode root, int target) {
+        if (root==null){
+            return;
+        }
+        if (target < 0 || root.val > target) {
+            return;
+        }
+        tempList.add(root.val);
+
+        if (root.left == null && root.right == null && target == root.val) {
+            res.add(new ArrayList<>(tempList));
+            //此处不能return
+            //return;
+        }
+        pathSum2Helper(res, tempList, root.left, target - root.val);
+        pathSum2Helper(res, tempList, root.right, target - root.val);
+        tempList.remove(tempList.size() - 1);
+    }
+
+
 
 }

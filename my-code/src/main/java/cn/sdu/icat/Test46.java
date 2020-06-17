@@ -47,24 +47,5 @@ public class Test46 {
 
     public static void main(String[] args) {
         int[] nums = new int[]{1, 2, 3, 4};
-        /*Test46 solution = new Test46();
-        List<List<Integer>> permute = solution.permute(nums);
-        for (int i = 0; i < permute.size(); i++) {
-            System.out.println(permute.get(i));
-        }*/
-
-        int a=1;
-        while (a<10){
-            a++;
-            if(a<5){
-
-            }else {
-                System.out.println(a);
-            }
-
-        }
-
     }
-
-
 }

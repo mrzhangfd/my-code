@@ -11,6 +11,8 @@ import java.util.*;
  */
 
 public class Offer66Class {
+
+
     /**
      * 数组中的重复数字
      *
@@ -429,7 +431,7 @@ public class Offer66Class {
 
     }
 
-    public int InversePairs(int[] array) {
+    /*public int InversePairs(int[] array) {
         int count = 0;
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < i; j++) {
@@ -439,7 +441,7 @@ public class Offer66Class {
             }
         }
         return count;
-    }
+    }*/
 
     public ArrayList<Integer> maxInWindows(int[] num, int size) {
         ArrayList<Integer> list = new ArrayList<>();
@@ -613,17 +615,21 @@ public class Offer66Class {
 
     /**
      * 重建二叉树
+     * 作者：Monotone
+     * 链接：https://www.nowcoder.com/questionTerminal/8a19cbe657394eeaac2f6ea9b0f6fcf6?f=discussion
+     * 来源：牛客网
+     * <p>
+     * 递归思想，每次将左右两颗子树当成新的子树进行处理，中序的左右子树索引很好找，前序的开始结束索引通过计算中序中左右子树的大小来计算，
+     * 然后递归求解，直到startPre>endPre||startIn>endIn说明子树整理完到。方法每次返回左子树活右子树的根节点
      *
      * @param pre
      * @param in
      * @return
      */
     public TreeNode reConstructBinaryTree(int[] pre, int[] in) {
-        if (pre == null || in == null) {
-            return null;
-        }
+
         TreeNode root = reConstructBinTreeHelper(pre, 0, pre.length - 1, in, 0, in.length - 1);
-        return null;
+        return root;
     }
 
     /**
@@ -632,17 +638,246 @@ public class Offer66Class {
      * @param
      */
     TreeNode reConstructBinTreeHelper(int[] pre, int preStart, int preEnd, int[] in, int inStart, int inEnd) {
+        if (preStart > preEnd || inStart > inEnd) {
+            return null;
+        }
+        TreeNode root = new TreeNode(pre[preStart]);
+        for (int i = inStart; i <= inEnd; i++) {
+            if (in[i] == pre[preStart]) {
+                root.left = reConstructBinTreeHelper(pre, preStart + 1, i - inStart + preStart, in, inStart, i - 1);
+                root.right = reConstructBinTreeHelper(pre, preStart + i - inStart + 1, preEnd, in, i + 1, inEnd);
 
-      return null;
+                break;
+            }
+        }
+        return root;
+
+    }
+
+    public int InversePairs(int[] array) {
+        int[] dp = new int[array.length];
+        if (array.length <= 1) {
+            return 0;
+        }
+        dp[0] = 0;
+        if (array[1] < array[0]) {
+            dp[1] = 1;
+        } else {
+            dp[1] = 0;
+        }
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] < array[i - 1]) {
+                dp[i] = dp[i - 1] + 1;
+            } else {
+                dp[i] = dp[i - 1];
+            }
+        }
+        return dp[array.length - 1];
+    }
+
+
+    /**
+     * 算法本质：
+     * DFS||BFS 寻找连通分量
+     * <p>
+     * 题目分析：
+     * 机器人在一个矩阵上的m*n个格子上移动，可进入的格子的集合可抽象为以下点集：
+     * { (row, col) | (i%10+i/10+j%10+j/10) <= threshold }。且路径节点可重复，无步数限制。
+     * 问：机器人能到达多少个格子？
+     * <p>
+     * 题目抽象：
+     * 倘若我们把矩阵的每一个“格子”抽象成一个“结点”，把“格子相邻”抽象为“结点连通”（结点之间存在无向边），
+     * 把“无法进入的格子”抽象成“与所有普通结点都不连通（不存在无向边）的孤点”，则整个问题可以抽象为：
+     * 从某个结点出发，寻找无向图的连通分量的节点个数。很显然，可以使用DFS或者BFS进行实现
+     * <p>
+     * 算法实现：
+     * 这里选择DFS进行实现。
+     * 设置两个辅助boolean矩阵：visited与isWall。前者是DFS中的典型辅助矩阵，记录每个节点是否已访问过。
+     * 后者用来表示每个节点是否是不能进入的“孤点”。
+     * 设置静态变量nodeCnt，用于在DFS的过程中记录访问过的结点数
+     * DFS递归函数的出口条件设置为：
+     * (outOfBoundary(rows, cols, row, col) || visited[row][col] || isWall[row][col] )
+     * 即：“若超过边界（到矩阵之外）”或“访问过”或“是无法进入的结点” 则 return
+     * 然后进行DFS。
+     */
+    //机器人运动范围
+    public int res = 0;
+
+    public int movingCount(int threshold, int rows, int cols) {
+        int[][] arr = new int[rows][cols];
+        findWay(arr, 0, 0, threshold);
+
+        return res;
+    }
+
+    private void findWay(int[][] arr, int i, int j, int threshold) {
+        if (i < 0 || j < 0 || i >= arr.length || j >= arr[0].length) {
+            return;
+        }
+        if (getSum(i) + getSum(j) > threshold) {
+            arr[i][j] = 1;
+            return;
+        }
+        if (arr[i][j] == 1) {
+            return;
+        }
+
+        //标记为1，表示访问过。
+        arr[i][j] = 1;
+
+        res++;
+
+        findWay(arr, i + 1, j, threshold);
+        findWay(arr, i, j + 1, threshold);
+        findWay(arr, i - 1, j, threshold);
+        findWay(arr, i, j - 1, threshold);
 
     }
 
 
+    private int getSum(int num) {
+        int sum = 0;
+        while (num > 0) {
+            sum += num % 10;
+            num = num / 10;
+        }
+        return sum;
+//        if (num >= 10) {
+//            sum += num % 10;
+//            sum += getSum(num / 10);
+//        } else {
+//            sum += num;
+//        }
+//        return sum;
+    }
+
+
+    HashMap<Character, Integer> map = new HashMap();
+    ArrayList<Character> list = new ArrayList<Character>();
+
+    //Insert one char from stringstream
+    public void Insert(char ch) {
+        if (map.containsKey(ch)) {
+            map.put(ch, map.get(ch) + 1);
+        } else {
+            map.put(ch, 1);
+        }
+        list.add(ch);
+    }
+
+    /**
+     * 找到字符流中第一次出现的字符
+     *
+     * @return
+     */
+    //return the first appearence once char in current stringstream
+    public char FirstAppearingOnce() {
+        char c = '#';
+        for (char key : list) {
+            if (map.get(key) == 1) {
+                c = key;
+                break;
+            }
+        }
+        return c;
+    }
+
+    /**
+     * 变态跳台阶
+     * 个人认为用回溯
+     *
+     * @param target
+     * @return
+     */
+    int sum = 0;
+
+    public int JumpFloorII(int target) {
+        if (target < 0) {
+            return -1;
+        } else if (target == 1) {
+            return 1;
+        } else {
+            return 2 * JumpFloorII(target - 1);
+        }
+
+    }
+
+    /**
+     * 平衡二叉树
+     *
+     * @param root
+     * @return
+     */
+    public boolean IsBalanced_Solution(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        return isBalancedHelper(root);
+
+    }
+
+    private boolean isBalancedHelper(TreeNode node) {
+        if (node == null) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public int cutRope(int target) {
+        int max = 1;
+        if (target <= 3 && target > 0) {
+            return target - 1;
+        }
+        while (target > 4) {
+            target -= 3;
+            max *= 3;
+        }
+        return max * target;
+    }
+
+
+    //矩阵中的路径
+    public boolean hasPath(char[] matrix, int rows, int cols, char[] str) {
+
+        if (matrix == null || str == null) {
+            return false;
+        }
+        char[][] arr = new char[rows][cols];
+        int length = matrix.length;
+        for (int i = 0; i < length; i++) {
+
+        }
+        int idx = 0;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+
+            }
+        }
+        return false;
+    }
+
+    //和为S的连续正数序列
+    public ArrayList<ArrayList<Integer>> FindContinuousSequence(int sum) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        List<Integer> tempList = new ArrayList<>();
+        return res;
+    }
+
+    public int GetContinuousSum(int i, int j) {
+        return (j - i + 1) * (j + i) / 2;
+    }
+
     public static void main(String[] args) {
         Offer66Class offer66Class = new Offer66Class();
         int[] num = {2, 3, 4, 2, 6, 2, 5, 1};
+        int[] array = {1, 2, 3, 4, 5, 6, 7, 0};
         int size = 3;
-        System.out.println(offer66Class.Permutation("abc"));
+        // System.out.println(offer66Class.InversePairs(array));
+        System.out.println(offer66Class.movingCount(5, 10, 10));
+        //System.out.println(offer66Class.getSum(35));
+
     }
 
     private void fun(char[] ch, List<String> list, int i) {

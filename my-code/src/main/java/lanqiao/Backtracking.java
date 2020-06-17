@@ -1,19 +1,23 @@
 package lanqiao;
 
 
+import cn.sdu.icat.TreeNode;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 /**
  * @author icatzfd
  * Created on 2020/5/31 16:36.
+ * https://leetcode-cn.com/problems/permutations/solution/hui-su-suan-fa-xiang-jie-by-labuladong-2/
  */
 public class Backtracking {
     public Backtracking() {
     }
 
+
+    // 子集
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
         backtrack(0, nums, res, new ArrayList<Integer>());
@@ -178,37 +182,83 @@ public class Backtracking {
 
     private void letterCasePermutationHelper(char[] chars, int start, List<String> ret) {
 
-        boolean flag=false;
-        if(ret.contains(new String(chars))){
+        if (ret.contains(new String(chars))) {
             return;
         }
-        if (start == chars.length - 1 ) {
-            if(flag){
-                ret.add(new String(chars));
-                return;
-            }else {
-                return;
-            }
-
-
+        if (start == chars.length) {
+            ret.add(new String(chars));
+            return;
         }
         for (int i = start; i < chars.length; i++) {
             if (chars[i] >= '0' && chars[i] <= '9') {
-                continue;
-            }
-
-            letterCasePermutationHelper(chars, start + 1, ret);
-            if (chars[i] - 'a' < 0) {
-                flag=true;
-                chars[i] = (char) (chars[i] + 32);
+                letterCasePermutationHelper(chars, i + 1, ret);
             } else {
-                flag=true;
-                chars[i] = (char) (chars[i] - 32);
+                letterCasePermutationHelper(chars, i + 1, ret);
+                if (chars[i] - 'a' < 0) {
+                    chars[i] = (char) (chars[i] + 32);
+                } else {
+                    chars[i] = (char) (chars[i] - 32);
+                }
+                letterCasePermutationHelper(chars, i + 1, ret);
+
             }
-            letterCasePermutationHelper(chars, start + 1, ret);
+        }
+    }
+
+    //77
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> tempList = new ArrayList<>();
+        combineHelper(1, n, k, res, tempList);
+        return res;
+    }
+
+    private void combineHelper(int start, int n, int k, List<List<Integer>> res, List<Integer> tempList) {
+        if (tempList.size() == k) {
+            res.add(new ArrayList<>(tempList));
+            return;
         }
 
+        for (int i = start; i <= n; i++) {
+            tempList.add(i);
+            combineHelper(i + 1, n, k, res, tempList);
+            tempList.remove(tempList.size() - 1);
+        }
     }
+
+    // 279 完全平方数
+    public int numSquares(int n) {
+        int ret = 0;
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> tempList = new ArrayList<>();
+        numSquaresHelper(res, tempList, n, 1, n);
+        System.out.println(res);
+        return 0;
+    }
+
+    private void numSquaresHelper(List<List<Integer>> res, List<Integer> tempList, int target, int start, int n) {
+        if (target < 0) {
+            return;
+        }
+        if (target == 0) {
+            res.add(new ArrayList<>(tempList));
+            return;
+        }
+        for (int i = start; i <= n; i++) {
+
+            int x = (int) Math.sqrt(i);
+            System.out.println(x * x == i);
+            if (i != x * x) {
+                continue;
+            } else {
+                tempList.add(i);
+                numSquaresHelper(res, tempList, n - i, i + 1, n);
+                tempList.remove(tempList.size() - 1);
+            }
+
+        }
+    }
+
 
 
     public static void main(String[] args) {
@@ -218,7 +268,8 @@ public class Backtracking {
         char a = 'a';
         char A = 'A';
         char ss = 'A' + 32;
-        System.out.println(backtrack.letterCasePermutation("a1b2"));
+        System.out.println(backtrack.numSquares(12));
+        //System.out.println(backtrack.letterCasePermutation("C"));
 
         //System.out.println(nums);
         //System.out.println(backtrack.combinationSum(nums, 7));

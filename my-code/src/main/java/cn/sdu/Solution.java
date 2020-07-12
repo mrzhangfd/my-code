@@ -1,10 +1,6 @@
-package cn.sdu.icat;
+package cn.sdu;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.sql.SQLOutput;
 import java.util.*;
 
 /**
@@ -691,24 +687,7 @@ public class Solution {
      */
     public ListNode Merge(ListNode list1, ListNode list2) {
         ListNode res = new ListNode(-1);
-        if (list1 == null || list2 == null) {
-            return res;
-        }
-        int list1Length = 0;
-        int list2Length = 0;
-        ListNode curNode = list1;
-        while (list1 != null) {
-            list1Length++;
-            list1 = list1.next;
-        }
-        while (list2 != null) {
-            list2Length++;
-            list2 = list2.next;
-        }
 
-        if (list1Length >= list2Length) {
-            return res;
-        }
         return res;
     }
 

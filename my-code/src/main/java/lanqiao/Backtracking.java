@@ -1,8 +1,5 @@
 package lanqiao;
 
-
-import cn.sdu.icat.TreeNode;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,6 +7,7 @@ import java.util.List;
 /**
  * @author icatzfd
  * Created on 2020/5/31 16:36.
+ * 回溯：排列、组合（39）、子集问题
  * https://leetcode-cn.com/problems/permutations/solution/hui-su-suan-fa-xiang-jie-by-labuladong-2/
  */
 public class Backtracking {
@@ -132,6 +130,9 @@ public class Backtracking {
         }
     }
 
+    void test(ArrayList<Integer> res){
+        System.out.println(res);
+    }
     /**
      * leetcode 46 全排列
      *
@@ -260,6 +261,34 @@ public class Backtracking {
     }
 
 
+    //90 子集2
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums == null || nums.length == 0) {
+            return res;
+        }
+        List<Integer> tmp = new ArrayList<>();
+        Arrays.sort(nums);
+        subsetsWithDupHelper(res, 0, nums, tmp);
+        return res;
+    }
+
+    private void subsetsWithDupHelper(List<List<Integer>> res, int start, int[] nums, List<Integer> tmp) {
+
+        if (!res.contains(tmp)) {
+            res.add(tmp);
+        }
+        if (start >= nums.length) {
+            return;
+        }
+
+        for (int i = start; i < nums.length; i++) {
+            tmp.add(nums[i]);
+            subsetsWithDupHelper(res, start + 1, nums, tmp);
+            tmp.remove(tmp.size() - 1);
+        }
+
+    }
 
     public static void main(String[] args) {
         Backtracking backtrack = new Backtracking();

@@ -1,4 +1,4 @@
-package cn.sdu.icat;
+package cn.sdu;
 
 import java.util.Arrays;
 import java.util.List;

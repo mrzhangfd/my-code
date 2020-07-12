@@ -1,4 +1,4 @@
-package cn.sdu.icat;
+package cn.sdu;
 
 /**
  * 广度优先遍历

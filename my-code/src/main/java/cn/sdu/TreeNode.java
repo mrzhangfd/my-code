@@ -1,4 +1,4 @@
-package cn.sdu.icat;
+package cn.sdu;
 
 import java.util.*;
 
@@ -10,11 +10,11 @@ import java.util.*;
  */
 
 public class TreeNode {
-    int val;
-    TreeNode left = null;
-    TreeNode right = null;
+    public int val;
+    public TreeNode left = null;
+    public TreeNode right = null;
 
-    TreeNode(int x) {
+    public TreeNode(int x) {
         val = x;
     }
 

@@ -1,4 +1,4 @@
-package cn.sdu.icat;
+package cn.sdu;
 
 /**
  * @author icatzfd
@@ -76,5 +76,7 @@ public class Test48 {
     public static void main(String[] args) {
         Test48 tt=new Test48();
         System.out.println(tt.movingCount(5,10,10));
+        char a='a';
+        System.out.println(Integer.valueOf(a));
     }
 }

@@ -1,8 +1,6 @@
-package cn.sdu.icat;
+package cn.sdu;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * 46.全排列
@@ -45,7 +43,12 @@ public class Test46 {
         return res;
     }
 
+
     public static void main(String[] args) {
         int[] nums = new int[]{1, 2, 3, 4};
+        Arrays.sort(nums);
     }
+
+
 }
+

@@ -1,4 +1,4 @@
-package cn.sdu.icat;
+package cn.sdu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +77,7 @@ class Solution1 {
 
     public void push(int node) throws Exception {
         dataStack.push(node);
-        if(dataStack.size()==1){
+        if (dataStack.size() == 1) {
             minStack.push(node);
         }
         int min = min();
@@ -90,7 +90,7 @@ class Solution1 {
     }
 
     public void pop() throws Exception {
-        if (dataStack.isEmpty()||minStack.isEmpty()) {
+        if (dataStack.isEmpty() || minStack.isEmpty()) {
             throw new Exception("empty stack");
 
         }
@@ -100,21 +100,21 @@ class Solution1 {
     }
 
     public int top() throws Exception {
-        if(dataStack.isEmpty()){
+        if (dataStack.isEmpty()) {
             throw new Exception("error1");
         }
         return dataStack.peek();
     }
 
     public int min() throws Exception {
-        if (dataStack.isEmpty() ) {
+        if (dataStack.isEmpty()) {
             throw new Exception("error");
         }
         return minStack.peek();
     }
 
     public static void main(String[] args) throws Exception {
-        Solution1 solution1=new Solution1();
+        Solution1 solution1 = new Solution1();
         solution1.push(3);
         //System.out.println(solution1.dataStack.size());
         System.out.println(solution1.min());

@@ -1,6 +1,4 @@
-package cn.sdu.icat;
-
-import java.util.ArrayList;
+package cn.sdu;
 
 /**
  * 数组和矩阵

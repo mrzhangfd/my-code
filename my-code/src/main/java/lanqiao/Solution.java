@@ -1,6 +1,9 @@
 package lanqiao;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
+import java.util.*;
 
 
 /**
@@ -159,15 +162,151 @@ public class Solution {
         return negative ? result : -result;
     }
 
+    public void computerNum(int n) {
+        int count = 0;
+        for (int i = 1; i <= n; i++) {
+            int sum = 0;
+            for (int j = 1; j < i / 2 + 1; j++) {
+                if (i % j == 0) {
+                    sum = j + sum;
+
+                }
+
+            }
+        }
+    }
+
+
+    static class Meet   {
+        int start;
+        int end;
+
+        public Meet(int start, int end) {
+            this.start = start;
+            this.end = end;
+        }
+
+        public void setStart(int start) {
+            this.start = start;
+        }
+
+        public void setEnd(int end) {
+            this.end = end;
+        }
+
+
+    }
+
+    private int meetProblem(Queue<Meet> meets) {
+        if (meets == null || meets.size() == 0) {
+            return 0;
+        }
+
+        int earlyEnd = 24;
+        for (Meet meet : meets) {
+            if (meet.end < earlyEnd) {
+                earlyEnd = meet.end;
+            }
+        }
+        return 1;
+    }
+
+    private int Jump(int[] arr) {
+
+        if (arr == null || arr.length == 0) {
+            return 0;
+        }
+        int len = arr.length;
+        if (len == 1) {
+            return arr[0];
+        }
+        if (len == 2) {
+            return Math.max(arr[0], arr[1]);
+        }
+
+        int[] dp = new int[len];
+        dp[0] = arr[0];
+        dp[1] = arr[1];
+        for (int i = 2; i < len; i++) {
+            dp[i] = Math.max(dp[i - 1] + arr[i] - arr[i - 1], dp[i - 2] + arr[i]);
+        }
+        int max = Integer.MIN_VALUE;
+        for (int num : dp) {
+            if (num >= max) {
+                max = num;
+            }
+        }
+        return max;
+    }
+
+    private int Jump2(int arr[]) {
+        int[] dp = new int[arr.length];
+        dp[0] = arr[0];
+        dp[1] = Math.max(arr[0], arr[1]);
+        for (int i = 2; i < arr.length; i++) {
+            dp[i] = Math.max(dp[i - 2] + arr[i], dp[i - 1]);
+        }
+
+        return dp[arr.length - 1];
+    }
 
 
     public static void main(String[] args) throws IOException {
         Solution solution = new Solution();
-        //int[] nums = {5, 7, 7, 8, 8, 10};
-        int[] nums = new int[]{3, 4, 5, 1, 2};
-        int target = 7;
+        int[] nums = {5, 7, 7, 8, 8, 10};
+        //int[] nums = new int[]{3, 4, 5, 1, 2};
+/*        int target = 7;
         char a = 'a';
-        System.out.println(Integer.valueOf(9));
+        int[] arr = {1000, 5, 20000, 100};
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int[] nums = new int[n];
+        for (int i = 0; i < n; i++) {
+            nums[i] = sc.nextInt();
+        }
+        System.out.println(solution.Jump2(arr));*/
+        //System.out.println(Integer.valueOf(9));
+        //solution.computerNum(1000);
+
+        PriorityQueue<Meet> queue = new PriorityQueue<Meet>(11, new Comparator<Meet>() {
+            @Override
+            public int compare(Meet o1, Meet o2) {
+                return o2.end - o1.end;
+            }
+        });
+        int n;//测试数据的组数
+        int count;//会议的场数
+        Scanner sc = new Scanner(System.in);
+        n = Integer.parseInt(sc.nextLine());
+        System.out.println(n);
+        count = Integer.parseInt(sc.nextLine());
+        System.out.println(count);
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < count; j++) {
+                String[] meets = sc.nextLine().split(" ");
+                Meet meet = new Meet(Integer.parseInt(meets[0]), Integer.parseInt(meets[1]));
+                queue.add(meet);
+            }
+            System.out.println(queue);
+            int res = 1;
+            Meet meet = queue.poll();
+            int endTime = meet.end;
+            int sum = meet.end - meet.start;
+            for (int k = 1; k < count; k++) {
+                System.out.println(endTime);
+                if (endTime <= queue.peek().start) {
+                    res++;
+                    Meet tmp = queue.peek();
+                    sum = sum + tmp.end - tmp.start;
+                    endTime = tmp.end;
+                }
+                queue.poll();
+
+            }
+            queue.clear();
+            System.out.println(sum);
+        }
     }
 
 }

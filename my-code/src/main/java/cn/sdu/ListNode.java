@@ -1,4 +1,4 @@
-package cn.sdu.icat;
+package cn.sdu;
 
 import java.util.Stack;
 
@@ -9,11 +9,11 @@ import java.util.Stack;
  * Created on 2019/9/14 23:54.
  */
 public class ListNode {
-    int val;
-    ListNode next = null;
+    public int val;
+    public ListNode next = null;
 
 
-    ListNode(int x) {
+    public ListNode(int x) {
         val = x;
     }
 

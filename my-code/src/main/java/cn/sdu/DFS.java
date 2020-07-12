@@ -1,4 +1,4 @@
-package cn.sdu.icat;
+package cn.sdu;
 
 /**
  * 深度优先

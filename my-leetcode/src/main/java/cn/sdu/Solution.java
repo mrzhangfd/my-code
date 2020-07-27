@@ -662,17 +662,6 @@ public class Solution {
             }
         }
         return false;
-        /*int leftDown = array[rowNum - 1][0];
-        int leftUp = array[0][0];
-        if (target == leftDown) {
-            return true;
-        }
-        if (target > leftDown) {
-            System.out.println("");
-        } else if (target > array[0][0]) {
-            System.out.println("");
-        }
-*/
     }
 
 
@@ -685,12 +674,6 @@ public class Solution {
      * @param list2
      * @return
      */
-    public ListNode Merge(ListNode list1, ListNode list2) {
-        ListNode res = new ListNode(-1);
-
-        return res;
-    }
-
 
     /**
      * 反转单词顺序列

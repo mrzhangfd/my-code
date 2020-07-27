@@ -4,6 +4,7 @@ import cn.sdu.TreeNode;
 
 import java.util.*;
 
+
 /**
  * 二刷
  *
@@ -12,7 +13,6 @@ import java.util.*;
  */
 public class Offer66 {
 
-    Offer66 offer66 = new Offer66();
 
     //旋转数组的最小数，
     public int minNumberInRotateArray(int[] array) {
@@ -138,9 +138,33 @@ public class Offer66 {
 
     //二叉搜索树转为双向链表
 
-
+    //最小的k个数，用大根堆，堆排序
     public ArrayList<Integer> GetLeastNumbers_Solution_queque(int[] input, int k) {
-        return  null;
+        ArrayList<Integer> res = new ArrayList<>();
+        Queue<Integer> queue = new PriorityQueue<Integer>(11, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o2.compareTo(o1);
+            }
+        });
+
+        for (int i = 0; i < input.length; i++) {
+            if (queue.size() == k) {
+                if (input[i] < queue.peek()) {
+                    queue.poll();
+                    queue.offer(input[i]);
+                }
+            } else {
+                queue.offer(input[i]);
+
+            }
+
+        }
+        Math.max(1, 2);
+        while (!queue.isEmpty()) {
+            res.add(queue.poll());
+        }
+        return res;
     }
 
     //最小的k个数 快排
@@ -191,6 +215,84 @@ public class Offer66 {
         nums[right] = t;
     }
 
+    public int FindGreatestSumOfSubArray(int[] array) {
+
+        int len = array.length;
+        int[] dp = new int[len];
+        dp[0] = array[0];
+        int max = Integer.MIN_VALUE;
+        for (int i = 1; i < len; i++) {
+            dp[i] = Math.max(dp[i - 1] + array[i], array[i]);
+            if (dp[i] > max) {
+                max = dp[i];
+            }
+        }
+        return max;
+    }
+
+    //数字在排序数组中出现的次数
+    public int GetNumberOfK(int[] array, int k) {
+        if (array == null || array.length == 0) {
+            return 0;
+        }
+        if (k > array[array.length - 1] || k < array[0]) {
+            return 0;
+        }
+        System.out.println(findIdx(array, k + 0.5));
+        System.out.println(findIdx(array, k - 0.5));
+        return findIdx(array, k + 0.5) - findIdx(array, k - 0.5) ;
+    }
+
+    private int findIdx(int[] array, double k) {
+        int i = 0;
+        int j = array.length - 1;
+        int mid;
+        while (i <=j) {
+            mid = i + (j - i) / 2;
+            if (array[mid] > k) {
+                j = mid -1;
+            } else if (array[mid] < k) {
+                i = mid +1;
+            }
+        }
+        return j;
+    }
+
+    public boolean isStraight(int[] numbers) {
+        if(numbers==null || numbers.length!=5){
+            return false;
+        }
+        Arrays.sort(numbers);
+        int len=numbers.length;
+        int firsrNumNot0=0;
+        for(int i=0;i<len-1;i++){
+            if(numbers[i]!=0){
+                firsrNumNot0=numbers[i];
+                break;
+            }
+        }
+        if(numbers[4]-firsrNumNot0>5){
+            return false;
+        }
+        int numOf0=0;
+        for(int num:numbers){
+            if(num==0){
+                numOf0++;
+            }
+        }
+        int needNumOf0=0;
+        for(int i=4;i>0&&numbers[i-1]!=0;i--){
+            int dis=numbers[i]-numbers[i-1];
+            needNumOf0+=dis-1;
+            if(dis==0){
+                return false;
+            }
+        }
+        if(needNumOf0>numOf0){
+            return false;
+        }
+        return true;
+    }
 
     public static void main(String[] args) {
         Offer66 offer66 = new Offer66();
@@ -200,9 +302,18 @@ public class Offer66 {
         int[] pushA = {1, 2, 3, 4, 5};
         int[] popA = {4, 5, 3, 2, 1};
         int[] seq = {5, 4, 3, 2, 1};
-        int[] seq1 = {4, 8, 6, 12, 16, 14, 10};
-        System.out.println(offer66.VerifySquenceOfBST(seq));
-        String ss = "234";
+        int[] seq1 = {6, -3, -2, 7, -15, 1, 2, 2};
+        int[] num={1,2,3,3,3,3,4,5};
+        int[] nums={0,0,8,5,4};
+        System.out.println(offer66.isStraight(nums));
+//        String ss = "ss";
+//        Queue<Integer> queue = new LinkedList<>();
+//        System.out.println(Integer.valueOf('0'));
+//        System.out.println(Integer.valueOf('a'));
+//        System.out.println(Integer.valueOf('z'));
+//        System.out.println(Integer.valueOf('A'));
+//        System.out.println(Integer.valueOf('Z'));
+
 
     }
 }

@@ -1,6 +1,6 @@
 package design_pattern;
 
-import sun.misc.Resource;
+
 
 /**
  * 单例模式
@@ -23,7 +23,7 @@ import sun.misc.Resource;
     }
 }*/
 
-    //双重校验锁，使用volatile的场景之一
+//双重校验锁，使用volatile的场景之一
 /*public class Singleton{
     private static volatile Singleton instance=null;
     private Singleton(){}
@@ -40,6 +40,8 @@ import sun.misc.Resource;
         return instance;
     }
 }*/
+
+
 
 
 

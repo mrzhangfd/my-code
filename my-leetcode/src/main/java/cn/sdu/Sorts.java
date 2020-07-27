@@ -1,9 +1,6 @@
 package cn.sdu;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author 张峰达
@@ -241,12 +238,50 @@ public class Sorts {
     }
 
 
+    //堆排序 使用优先队列
+
+
     public static void main(String[] args) {
         int[] nums = {49, 38, 65, 97, 23, 22, 76, 1, 5, 7, 2};
         Sorts sorts = new Sorts();
         String ss = "tree";
         //sorts.frequencySort(ss);
-        sorts.quickSort(nums);
+        //sorts.quickSort(nums);
+        PriorityQueue<Integer> queue = new PriorityQueue<>(nums.length, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+
+                return o1 - o2;
+            }
+        });
+        PriorityQueue<Integer> queue1 = new PriorityQueue<>(nums.length, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                if(o2>o1){
+                    return 1;
+                }else if(o2<o1){
+                    return -1;
+                }else {
+                    return 0;
+                }
+
+            }
+        });
+        for (int num : nums) {
+            queue.offer(num);
+            queue1.offer(num);
+        }
+        List<Integer> list = new ArrayList<>();
+        List<Integer> list1 = new ArrayList<>();
+        while (!queue.isEmpty()) {
+            list.add(queue.poll());
+        }
+        while (!queue1.isEmpty()){
+            list1.add(queue1.poll());
+        }
+
+        System.out.println(list);
+        System.out.println(list1);
 
 
         //sorts.sortColors(nums);

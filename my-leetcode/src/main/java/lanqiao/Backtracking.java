@@ -130,9 +130,10 @@ public class Backtracking {
         }
     }
 
-    void test(ArrayList<Integer> res){
+    void test(ArrayList<Integer> res) {
         System.out.println(res);
     }
+
     /**
      * leetcode 46 全排列
      *
@@ -284,20 +285,92 @@ public class Backtracking {
 
         for (int i = start; i < nums.length; i++) {
             tmp.add(nums[i]);
-            subsetsWithDupHelper(res, start + 1, nums, tmp);
+            subsetsWithDupHelper(res, i + 1, nums, tmp);
             tmp.remove(tmp.size() - 1);
         }
 
     }
 
+    //三数之和
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (nums.length <= 2) {
+            return res;
+        }
+        Arrays.sort(nums);
+        List<Integer> temp = new ArrayList<>();
+        helper(nums, 0, res, temp, 0);
+        return res;
+    }
+
+    private void helper(int[] nums, int start, List<List<Integer>> res, List<Integer> temp, int target) {
+        if (temp.size() == 3 && target == 0) {
+            if (!res.contains(temp)) {
+                res.add(new ArrayList<>(temp));
+            }
+            return;
+        }
+        if (start == nums.length) {
+            return;
+        }
+
+        for (int i = start; i < nums.length; i++) {
+            temp.add(nums[i]);
+            System.out.println(nums[i]);
+            helper(nums, i + 1, res, temp, target - nums[i]);
+            temp.remove(temp.size() - 1);
+        }
+    }
+
+
+    //93 复原ip
+    public List<String> restoreIpAddresses(String s) {
+        List<String> ans = new ArrayList<>();
+        List<String> list = new ArrayList<>();
+        helper(s, list, 0, 0, ans);
+        return ans;
+    }
+
+    private void helper(String s, List<String> list, int cur, int num, List<String> ans) {
+        if (list.size() > 4) {
+            return;
+        }
+        if (num == 4 && cur == s.length()) {
+            ans.add(String.join(".", list));
+            return;
+        }
+
+        for (int i = cur; i < cur + 3 && i < s.length(); i++) {
+            String ss = s.substring(cur, i + 1);
+            if (legal(ss)) {
+                list.add(ss);
+                helper(s, list, i + 1, num + 1, ans);
+                list.remove(list.size() - 1);
+            }
+        }
+    }
+
+    private boolean legal(String s) {
+        if (s.charAt(0) == '0' && s.length() != 1) {
+            return false;
+        }
+        if (Integer.parseInt(s) <= 255 && Integer.parseInt(s) >= 0) {
+            return true;
+        }
+        return false;
+    }
+
+
     public static void main(String[] args) {
         Backtracking backtrack = new Backtracking();
 
-        int[] nums = {1, 2, 3};
+        int[] nums = {-1, 0, 1, 2, -1, -4};
         char a = 'a';
         char A = 'A';
         char ss = 'A' + 32;
-        System.out.println(backtrack.numSquares(12));
+        String ip = "25525511135";
+        System.out.println(backtrack.restoreIpAddresses(ip));
+        // System.out.println(backtrack.threeSum(nums));
         //System.out.println(backtrack.letterCasePermutation("C"));
 
         //System.out.println(nums);

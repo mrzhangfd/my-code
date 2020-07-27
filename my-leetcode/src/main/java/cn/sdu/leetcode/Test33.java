@@ -182,9 +182,9 @@ public class Test33 {
         int n = 13;
         int base = 10;
         Test33 test33 = new Test33();
-        System.out.println(System.currentTimeMillis());
+        //System.out.println(System.currentTimeMillis());
         int[][] nums = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
-        System.out.println(test33.printMatrix(nums));
+       // System.out.println(test33.printMatrix(nums));
         // System.out.println(n&1);
         //test33.Power(base,n);
        /* Scanner sc = new Scanner(System.in);
@@ -205,6 +205,21 @@ public class Test33 {
             }
             System.out.println(cal(endToBegin));
         }*/
+        Scanner sc=new Scanner(System.in);
+        int[] num=new int[5];
+        int i=0;
+        int a=sc.nextInt();
+        while (sc.hasNext()){
+            num[i]=sc.nextInt();
+            i++;
+            if(i==5){
+                break;
+            }
+        }
+        System.out.println(a);
+        for(int tt:num){
+            System.out.println(tt);
+        }
     }
 
 

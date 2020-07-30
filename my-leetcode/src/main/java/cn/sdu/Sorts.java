@@ -189,6 +189,33 @@ public class Sorts {
         return index - 1;
     }
 
+
+/*    //严蔚敏《数据结构》标准分割函数
+    Paritition1(int A[], int low, int high) {
+        int pivot = A[low];
+        while (low < high) {
+            while (low < high && A[high] >= pivot) {
+                --high;
+            }
+            A[low] = A[high];
+            while (low < high && A[low] <= pivot) {
+                ++low;
+            }
+            A[high] = A[low];
+        }
+        A[low] = pivot;
+        return low;
+    }
+
+    void QuickSort(int A[], int low, int high) //快排母函数
+    {
+        if (low < high) {
+            int pivot = Paritition1(A, low, high);
+            QuickSort(A, low, pivot - 1);
+            QuickSort(A, pivot + 1, high);
+        }
+    }*/
+
     //归并排序
     public int[] mergeSort(int[] sourceArray) {
         int[] arr = Arrays.copyOf(sourceArray, sourceArray.length);

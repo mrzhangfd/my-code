@@ -6,19 +6,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="my-spring" />
         <module name="my-leetcode" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="8">
-      <module name="abctest" target="1.8" />
-      <module name="javacourse" target="1.5" />
-      <module name="web-crawler" target="1.5" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="8" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="abctest" options="-parameters" />
-      <module name="my-leetcode" options="-parameters" />
+      <module name="my-code" options="" target="1.8"/>
+      <module name="my-leetcode" options="" target="1.8"/>
+      <module name="my-spring" options="-parameters" target="1.8"/>
     </option>
   </component>
 </project>

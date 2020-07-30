@@ -1,4 +1,4 @@
-package cn.sdu.leetcode;
+package cn.sdu.leetcode.design;
 
 import java.util.HashMap;
 import java.util.Map;

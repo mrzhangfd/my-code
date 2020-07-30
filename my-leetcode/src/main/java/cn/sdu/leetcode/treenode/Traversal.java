@@ -1,4 +1,4 @@
-package cn.sdu.leetcode;
+package cn.sdu.leetcode.treenode;
 
 import cn.sdu.TreeNode;
 import org.omg.CORBA.INTERNAL;

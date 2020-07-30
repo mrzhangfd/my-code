@@ -1,6 +1,5 @@
-package cn.sdu.leetcode;
+package cn.sdu.leetcode.math;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**

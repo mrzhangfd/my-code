@@ -1,4 +1,4 @@
-package cn.sdu.leetcode;
+package cn.sdu.leetcode.listnode;
 
 import cn.sdu.ListNode;
 

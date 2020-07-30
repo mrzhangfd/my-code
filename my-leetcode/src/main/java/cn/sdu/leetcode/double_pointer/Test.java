@@ -1,8 +1,4 @@
-package cn.sdu;
-
-import org.opencv.core.*;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
+package cn.sdu.leetcode.double_pointer;
 
 
 import java.util.ArrayList;
@@ -16,6 +12,7 @@ import java.util.Scanner;
  */
 public class Test {
 
+    //三数之和
     public List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
         if (nums == null || nums.length == 0) {

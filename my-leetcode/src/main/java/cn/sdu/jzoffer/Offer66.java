@@ -13,6 +13,59 @@ import java.util.*;
  */
 public class Offer66 {
 
+    //矩阵中的路径
+    public boolean hasPath(char[] matrix, int rows, int cols, char[] str) {
+
+        if (matrix == null || matrix.length == 0 || rows == 0 || cols == 0 || str == null || str.length == 0) {
+            return false;
+        }
+        char[][] mat = new char[rows][cols];
+        int k = 0;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                mat[i][j] = matrix[k++];
+            }
+        }
+        boolean[][] visited = new boolean[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (mat[i][j] == str[0]) {
+
+                    return hasPathHelper(i, j, 0, str, mat, visited);
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean hasPathHelper(int i, int j, int start, char[] str, char[][] mat, boolean[][] visited) {
+
+        if (i < 0 || i >= mat.length || j < 0 || j >= mat[0].length) {
+            return false;
+        }
+        if (start >= str.length) {
+            return false;
+        }
+        if (visited[i][j]) {
+            return false;
+        }
+        if (mat[i][j] != str[start]) {
+            return false;
+        }
+        if (start == str.length - 1) {
+            return true;
+        }
+        visited[i][j] = true;
+        boolean res = hasPathHelper(i + 1, j, start + 1, str, mat, visited) |
+                hasPathHelper(i, j + 1, start + 1, str, mat, visited) ||
+                hasPathHelper(i - 1, j, start + 1, str, mat, visited) ||
+                hasPathHelper(i, j - 1, start + 1, str, mat, visited);
+        //回溯
+        visited[i][j] = false;
+        return res;
+    }
 
     //旋转数组的最小数，
     public int minNumberInRotateArray(int[] array) {
@@ -240,58 +293,128 @@ public class Offer66 {
         }
         System.out.println(findIdx(array, k + 0.5));
         System.out.println(findIdx(array, k - 0.5));
-        return findIdx(array, k + 0.5) - findIdx(array, k - 0.5) ;
+        return findIdx(array, k + 0.5) - findIdx(array, k - 0.5);
     }
 
     private int findIdx(int[] array, double k) {
         int i = 0;
         int j = array.length - 1;
         int mid;
-        while (i <=j) {
+        while (i <= j) {
             mid = i + (j - i) / 2;
             if (array[mid] > k) {
-                j = mid -1;
+                j = mid - 1;
             } else if (array[mid] < k) {
-                i = mid +1;
+                i = mid + 1;
             }
         }
         return j;
     }
 
     public boolean isStraight(int[] numbers) {
-        if(numbers==null || numbers.length!=5){
+        if (numbers == null || numbers.length != 5) {
             return false;
         }
         Arrays.sort(numbers);
-        int len=numbers.length;
-        int firsrNumNot0=0;
-        for(int i=0;i<len-1;i++){
-            if(numbers[i]!=0){
-                firsrNumNot0=numbers[i];
+        int len = numbers.length;
+        int firsrNumNot0 = 0;
+        for (int i = 0; i < len - 1; i++) {
+            if (numbers[i] != 0) {
+                firsrNumNot0 = numbers[i];
                 break;
             }
         }
-        if(numbers[4]-firsrNumNot0>5){
+        if (numbers[4] - firsrNumNot0 > 5) {
             return false;
         }
-        int numOf0=0;
-        for(int num:numbers){
-            if(num==0){
+        int numOf0 = 0;
+        for (int num : numbers) {
+            if (num == 0) {
                 numOf0++;
             }
         }
-        int needNumOf0=0;
-        for(int i=4;i>0&&numbers[i-1]!=0;i--){
-            int dis=numbers[i]-numbers[i-1];
-            needNumOf0+=dis-1;
-            if(dis==0){
+        int needNumOf0 = 0;
+        for (int i = 4; i > 0 && numbers[i - 1] != 0; i--) {
+            int dis = numbers[i] - numbers[i - 1];
+            needNumOf0 += dis - 1;
+            if (dis == 0) {
                 return false;
             }
         }
-        if(needNumOf0>numOf0){
+        if (needNumOf0 > numOf0) {
             return false;
         }
         return true;
+    }
+
+    //滑动窗口的最大值
+    public ArrayList<Integer> maxInWindows(int[] num, int size) {
+        if (num == null || num.length == 0 || size <= 0 || size > num.length) {
+            return new ArrayList<>();
+        }
+        ArrayList<Integer> list = new ArrayList<>();
+        if (size == num.length) {
+            int maxIdx = findMaxIdx(num, 0, num.length - 1);
+            list.add(num[maxIdx]);
+            return list;
+        }
+        //左边界
+        int left = 0;
+        //右边界
+        int right = size - 1;
+        while (right < num.length) {
+            int temp = findMaxIdx(num, left, right);
+            list.add(num[temp]);
+            left++;
+            right++;
+        }
+
+        return list;
+    }
+
+    private int findMaxIdx(int[] num, int left, int right) {
+        int maxIdx = left;
+        for (int i = left; i <= right; i++) {
+            if (num[i] > num[maxIdx]) {
+                maxIdx = i;
+            }
+        }
+        return maxIdx;
+    }
+
+    public ArrayList<Integer> maxInWindows1(int[] num, int size) {
+        ArrayList<Integer> list = new ArrayList<>();
+        if (num == null || num.length < size || size == 0) {
+            return list;
+        }
+        //队列头部存的是当前窗口的最大值的下标
+        LinkedList<Integer> linkedList = new LinkedList<>();
+        for (int i = 0; i < num.length; i++) {
+            //队列不为空，同时队列尾部的位置对应的值小于当前值
+            while (!linkedList.isEmpty() && num[linkedList.peekLast()] < num[i]) {
+                linkedList.pollLast();
+            }
+            linkedList.add(i);
+
+            //如果队列头存储的位置处于窗口外，则丢弃。
+            if (linkedList.peekFirst() <= (i - size)) {
+                linkedList.pollFirst();
+            }
+            //当i>=size-1时候，窗口内的值才满足size个
+            if (i >= size - 1) {
+                list.add(num[linkedList.peekFirst()]);
+            }
+        }
+        return list;
+    }
+
+    public int test(int i) {
+        try {
+            return i++;
+        } finally {
+
+            return i+2;
+        }
     }
 
     public static void main(String[] args) {
@@ -303,9 +426,15 @@ public class Offer66 {
         int[] popA = {4, 5, 3, 2, 1};
         int[] seq = {5, 4, 3, 2, 1};
         int[] seq1 = {6, -3, -2, 7, -15, 1, 2, 2};
-        int[] num={1,2,3,3,3,3,4,5};
-        int[] nums={0,0,8,5,4};
-        System.out.println(offer66.isStraight(nums));
+        int[] num = {1, 2, 3, 3, 3, 3, 4, 5};
+        int[] nums = {0, 0, 8, 5, 4};
+        char[] matrix = {'a', 'b', 'c', 'e'};
+        char[] str = {'a', 'b'};
+
+        int[] numss = {2, 3, 4, 2, 6, 2, 5, 1};
+        System.out.println(offer66.test(5));
+        //System.out.println(offer66.maxInWindows1(numss,3));
+        // System.out.println(offer66.hasPath(matrix, 2, 2, str));
 //        String ss = "ss";
 //        Queue<Integer> queue = new LinkedList<>();
 //        System.out.println(Integer.valueOf('0'));

@@ -1,7 +1,6 @@
 package cn.sdu.leetcode;
 
 import cn.sdu.ListNode;
-import cn.sdu.Test;
 import cn.sdu.TreeNode;
 
 import java.util.ArrayList;
@@ -13,29 +12,6 @@ import java.util.Scanner;
  * Created on 2020/6/28 15:54.
  */
 public class Test33 {
-    public int search(int[] nums, int target) {
-        if (nums == null || nums.length == 0) {
-            return -1;
-        }
-        int l = 0;
-        int h = nums.length - 1;
-        while (l < h) {
-            int mid = l + (h - l) / 2;
-            //m在左侧
-            if (nums[mid] > nums[h]) {
-                if (target > nums[mid]) {
-                    l = mid + 1;
-                } else if (target < nums[mid]) {
-
-                }
-            }
-            //m在右侧
-            else if (nums[mid] < nums[h]) {
-
-            }
-        }
-        return 1;
-    }
 
     public int maxDepth(TreeNode node) {
         if (node == null) {
@@ -102,7 +78,7 @@ public class Test33 {
 
     }
 
-
+    //快速指数幂
     public double Power(double base, int n) {
         double res = 1, curr = base;
         int exponent;
@@ -127,6 +103,7 @@ public class Test33 {
         return n >= 0 ? res : (1 / res);
     }
 
+    //逆时针打印矩阵
     public ArrayList<Integer> printMatrix(int[][] matrix) {
         ArrayList<Integer> res = new ArrayList<>();
         if (matrix == null || matrix.length == 0) {
@@ -184,27 +161,6 @@ public class Test33 {
         Test33 test33 = new Test33();
         //System.out.println(System.currentTimeMillis());
         int[][] nums = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
-       // System.out.println(test33.printMatrix(nums));
-        // System.out.println(n&1);
-        //test33.Power(base,n);
-       /* Scanner sc = new Scanner(System.in);
-        int x = sc.nextInt();
-
-        for (int y = 0; y < x; y++) {
-            int q = sc.nextInt();
-            HashMap<Integer, String> endToBegin = new HashMap<Integer, String>();
-
-            for (int e = 0; e < q; e++) {
-                int begin = sc.nextInt();
-                int end = sc.nextInt();
-                if (endToBegin.containsKey(end)) {
-                    endToBegin.put(end, endToBegin.get(end) + "-" + begin);
-                } else {
-                    endToBegin.put(end, begin + "");
-                }
-            }
-            System.out.println(cal(endToBegin));
-        }*/
         Scanner sc=new Scanner(System.in);
         int[] num=new int[5];
         int i=0;

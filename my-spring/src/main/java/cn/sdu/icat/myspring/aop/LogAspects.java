@@ -1,6 +1,6 @@
-package aop;
+package cn.sdu.icat.myspring.aop;
 
-import org.aspectj.lang.annotation.Aspect;
+//import org.aspectj.lang.annotation.Aspect;
 
 /**
  * 日志切面类
@@ -8,6 +8,6 @@ import org.aspectj.lang.annotation.Aspect;
  * @author icatzfd
  * Created on 2020/7/27 15:31.
  */
-@Aspect
+
 public class LogAspects {
 }

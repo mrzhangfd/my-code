@@ -1,4 +1,4 @@
-package juc;
+package cn.sdu.juc;
 
 import java.util.PriorityQueue;
 import java.util.concurrent.locks.Lock;

@@ -408,13 +408,19 @@ public class Offer66 {
         return list;
     }
 
-    public int test(int i) {
-        try {
-            return i++;
-        } finally {
-
-            return i+2;
+    //剪绳子
+    public static int cutRope(int target) {
+        if (target <= 3 && target>1) {
+            return target-1;
         }
+
+        int res = 1;
+        while (target > 4) {
+            res *= 3;
+            target -= 3;
+        }
+        res *= target;
+        return res;
     }
 
     public static void main(String[] args) {
@@ -432,7 +438,7 @@ public class Offer66 {
         char[] str = {'a', 'b'};
 
         int[] numss = {2, 3, 4, 2, 6, 2, 5, 1};
-        System.out.println(offer66.test(5));
+        System.out.println(cutRope(7));
         //System.out.println(offer66.maxInWindows1(numss,3));
         // System.out.println(offer66.hasPath(matrix, 2, 2, str));
 //        String ss = "ss";

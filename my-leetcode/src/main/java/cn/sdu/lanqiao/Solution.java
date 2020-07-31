@@ -1,4 +1,4 @@
-package lanqiao;
+package cn.sdu.lanqiao;
 
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package juc;
+package cn.sdu.juc;
 
 import java.util.HashMap;
 import java.util.Random;

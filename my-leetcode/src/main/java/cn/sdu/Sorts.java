@@ -1,6 +1,9 @@
 package cn.sdu;
 
 import java.util.*;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author 张峰达
@@ -76,6 +79,8 @@ public class Sorts {
     }
 
     public String frequencySort(String s) {
+        Lock lock=new ReentrantLock();
+        Condition condition;
         char[] chars = s.toCharArray();
         //1 使用hashmap 表示频率
         HashMap<Character, Integer> hashMap = new HashMap<>();
@@ -130,7 +135,7 @@ public class Sorts {
                     flag = false;
                 }
             }
-            if (false) {
+            if (flag) {
                 break;
             }
         }

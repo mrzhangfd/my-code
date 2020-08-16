@@ -28,7 +28,7 @@ public class Test56 {
             }
         });
         int idx = -1;
-        int i = 0;
+
         for (int[] interval : intervals) {
             if (idx == -1 || interval[0] > ans[idx][1]) {
                 ans[++idx] = interval;

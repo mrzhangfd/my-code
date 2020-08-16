@@ -34,9 +34,13 @@ public class Main1 {
             }
             System.out.println(res);
         }
+        for (int i = 0; i < 20; i++) {
+
+        }
 
         int count = k;
-        while (count >= 0) {
+        int num=5;
+        while (num>0) {
             if (count >= 100) {
                 if (count / 100 <= nums[4]) {
                     count -= (count / 100) * 100;
@@ -45,6 +49,7 @@ public class Main1 {
                     count -= nums[4] * 100;
                     nums[4] = 0;
                 }
+                num--;
             } else if (count >= 50) {
                 if (count / 50 <= nums[3]) {
                     count -= (count / 50) * 50;
@@ -53,6 +58,7 @@ public class Main1 {
                     count -= nums[3] * 50;
                     nums[3] = 0;
                 }
+                num--;
             } else if (count >= 10) {
                 if (count / 10 <= nums[2]) {
                     count -= (count / 10) * 10;
@@ -61,6 +67,7 @@ public class Main1 {
                     count -= nums[2] * 10;
                     nums[2] = 0;
                 }
+                num--;
             } else if (count >= 5) {
                 if (count / 5 <= nums[1]) {
                     count -= (count / 5) * 5;
@@ -69,6 +76,7 @@ public class Main1 {
                     count -= nums[1] * 5;
                     nums[1] = 0;
                 }
+                num--;
             } else if (count > 0) {
                 if (count <= nums[0]) {
                     count = 0;
@@ -77,15 +85,18 @@ public class Main1 {
                     System.out.println(-1);
                     break;
                 }
+                num--;
             }
-            if (count == 0) {
-                int res = 0;
-                for (int i = 0; i < 5; i++) {
-                    res += numss[i] - nums[i];
-                }
-                System.out.println(res);
-                break;
+
+
+        }
+        if (count == 0) {
+            int res = 0;
+            for (int i = 0; i < 5; i++) {
+                res += numss[i] - nums[i];
             }
+            System.out.println(res);
+
         }
     }
 }

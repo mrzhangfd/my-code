@@ -14,9 +14,9 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="my-code" options="" target="1.8"/>
-      <module name="my-leetcode" options="" target="1.8"/>
-      <module name="my-spring" options="-parameters" target="1.8"/>
+      <module name="my-code" options="" target="1.8" />
+      <module name="my-leetcode" options="" target="1.8" />
+      <module name="my-spring" options="-parameters" target="1.8" />
     </option>
   </component>
 </project>

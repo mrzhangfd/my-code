@@ -1,5 +1,6 @@
 package cn.sdu.jzoffer;
 
+import cn.sdu.ListNode;
 import cn.sdu.TreeNode;
 
 import java.util.*;
@@ -311,6 +312,7 @@ public class Offer66 {
         return j;
     }
 
+    //是否是顺子
     public boolean isStraight(int[] numbers) {
         if (numbers == null || numbers.length != 5) {
             return false;
@@ -410,8 +412,8 @@ public class Offer66 {
 
     //剪绳子
     public static int cutRope(int target) {
-        if (target <= 3 && target>1) {
-            return target-1;
+        if (target <= 3 && target > 1) {
+            return target - 1;
         }
 
         int res = 1;
@@ -422,6 +424,228 @@ public class Offer66 {
         res *= target;
         return res;
     }
+
+    //二叉树中和为某一值的路径
+    //回溯
+    public ArrayList<ArrayList<Integer>> FindPath(TreeNode root, int target) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        ArrayList<Integer> path = new ArrayList<>();
+        findPathHelper(res, path, target, root);
+
+        return res;
+    }
+
+    private void findPathHelper(ArrayList<ArrayList<Integer>> res, ArrayList<Integer> path, int target, TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        target -= node.val;
+        path.add(node.val);
+        if (node.left == null && node.right == null && target == 0) {
+            res.add(new ArrayList<>(path));
+        }
+
+        findPathHelper(res, path, target, node.left);
+        findPathHelper(res, path, target, node.right);
+        path.remove(path.size() - 1);
+
+    }
+
+    //对称的二叉树
+    boolean isSymmetrical(TreeNode pRoot) {
+        if (pRoot == null) {
+            return true;
+        }
+        return isSymmetricalHelper(pRoot.left, pRoot.right);
+    }
+
+    private boolean isSymmetricalHelper(TreeNode left, TreeNode right) {
+        if (left == null && right == null) {
+            return true;
+        }
+        if (left != null && right != null) {
+            return left.val == right.val && isSymmetricalHelper(left.left, right.right) &&
+                    isSymmetricalHelper(left.right, right.left);
+        } else {
+            return false;
+        }
+    }
+
+
+    //二叉搜索双向链表
+    public TreeNode Convert(TreeNode pRootOfTree) {
+
+        if (pRootOfTree == null) {
+            return null;
+        }
+        ArrayList<TreeNode> list = new ArrayList<>();
+        ConvertHelper(pRootOfTree, list);
+        return Convert(list);
+    }
+
+    private void ConvertHelper(TreeNode pRootOfTree, ArrayList<TreeNode> list) {
+        if (pRootOfTree.left != null) {
+            ConvertHelper(pRootOfTree.left, list);
+        }
+        list.add(pRootOfTree);
+        if (pRootOfTree.right != null) {
+            ConvertHelper(pRootOfTree.right, list);
+        }
+
+    }
+
+    private TreeNode Convert(ArrayList<TreeNode> list) {
+        for (int i = 0; i < list.size() - 1; i++) {
+            list.get(i).right = list.get(i + 1);
+            list.get(i + 1).left = list.get(i);
+        }
+        return list.get(0);
+    }
+
+    // 删除链表中重复节点
+    public ListNode deleteDuplication(ListNode pHead) {
+        if (pHead == null || pHead.next == null) {
+            return pHead;
+        }
+
+        ListNode dummyHead = new ListNode(-1);
+        dummyHead.next = pHead;
+        ListNode pre = dummyHead;
+        ListNode cur = pHead;
+        ListNode next = cur.next;
+        boolean flag;
+        while (next != null) {
+            flag = false;
+            while (next != null && cur.val != next.val) {
+                pre = cur;
+                cur = next;
+                next = cur.next;
+            }
+
+            while (next != null && next.val == cur.val) {
+                flag = true;
+                next = next.next;
+            }
+
+            if (next == null) {
+                if (flag) {
+                    pre.next = null;
+                }
+
+
+            } else {
+                pre.next = next;
+                cur = next;
+                next = cur.next;
+
+            }
+        }
+
+        return dummyHead.next;
+
+    }
+
+    //删除链表中重复的节点
+    public ListNode deleteDuplication2(ListNode pHead) {
+        if (pHead == null || pHead.next == null) {
+            return pHead;
+        }
+
+        ListNode dummyHead = new ListNode(-1);
+        dummyHead.next = pHead;
+        ListNode cur = dummyHead;
+        ListNode next = dummyHead.next;
+        while (next != null) {
+            if (next.next != null && next.val == next.next.val) {
+                while (next.next != null && next.val == next.next.val) {
+                    next = next.next;
+                }
+                cur = cur.next;
+                next = next.next;
+            } else {
+                cur = cur.next;
+                next = next.next;
+            }
+        }
+        return dummyHead.next;
+    }
+
+
+    //把数组排成最小的数
+    public String PrintMinNumber(int[] numbers) {
+        if (numbers == null || numbers.length == 0) {
+            return "";
+        }
+        List<Integer> list = new ArrayList<>();
+        for (int num : numbers) {
+            list.add(num);
+        }
+
+        Comparator cmp = new MyComparator();
+        //Arrays.sort(numbers, cmp);
+        Collections.sort(list, cmp);
+        String s = "";
+        for (int num : list) {
+            s += num;
+        }
+
+        return s;
+
+    }
+
+    class MyComparator implements Comparator<Integer> {
+        @Override
+        public int compare(Integer o1, Integer o2) {
+            String s1 = o1 + "" + o2;
+            String s2 = o2 + "" + o1;
+            return s1.compareTo(s2);
+
+        }
+
+
+    }
+
+    //丑数
+    public int GetUglyNumber_Solution(int index) {
+        if (index < 1) {
+            return 0;
+        }
+        if (index == 1) {
+            return 1;
+        }
+        // 1 2 3 4 5 6 8 10 12 。。。。
+        //后面的丑数是由前面的丑数乘以2 或3  或5  ，然后选取最小值得来的。
+
+        //相当于合并三个有序列表
+        //第一个列表为 所有丑数乘以2组成，第二个列表为所有丑数乘以3组成，第三个列表为所有丑数乘以5组成
+        // idx2  idx3  idx5 表示三个指针 分别指向三个列表头元素，每次选取三个列表头元素的最小值 加入结果数组。
+        //然后该最小元素对应的队列指针移动
+        //用idx2来控制 2 乘以ugly数组的第idx2个元素 即2*ugly[idx2]
+        int idx2 = 0, idx3 = 0, idx5 = 0;
+        int[] ugly = new int[index];
+        ugly[0] = 1;
+        for (int i = 1; i < index; i++) {
+            int temp = Math.min(2 * ugly[idx2], Math.min(3 * ugly[idx3], 5 * ugly[idx5]));
+            if (temp == 2 * ugly[idx2]) {
+                idx2++;
+            }
+            if (temp == 3 * ugly[idx3]) {
+                idx3++;
+            }
+            if (temp == 5 * ugly[idx5]) {
+                idx5++;
+            }
+            ugly[i] = temp;
+
+        }
+
+
+        return ugly[index-1];
+    }
+
 
     public static void main(String[] args) {
         Offer66 offer66 = new Offer66();

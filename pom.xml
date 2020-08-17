@@ -11,6 +11,7 @@
     <modules>
         <module>my-leetcode</module>
         <module>my-spring</module>
+        <module>my-juc</module>
     </modules>
 
     <dependencies>

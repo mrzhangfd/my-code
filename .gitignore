@@ -1,4 +1,3 @@
 # Project exclude paths
-/my-leetcode-arraylist/target/
 .project
 target/

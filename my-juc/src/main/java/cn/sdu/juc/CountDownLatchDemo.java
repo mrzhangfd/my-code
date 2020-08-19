@@ -24,7 +24,7 @@ public class CountDownLatchDemo  implements Runnable{
         } finally {
             //计数减一
             //放在finally 避免人物执行过程中出现异常，导师countDown()不能被执行
-            //latch.countDown();
+            latch.countDown();
         }
 
     }

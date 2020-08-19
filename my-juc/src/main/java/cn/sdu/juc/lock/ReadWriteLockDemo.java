@@ -2,6 +2,7 @@ package cn.sdu.juc.lock;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -66,6 +67,7 @@ class MyCache{
 public class ReadWriteLockDemo {
 
     public static void main(String[] args) {
+
         MyCache myCache=new MyCache();
         for (int i = 0; i <5 ; i++) {
             //lambda表达式中的值应为final类型

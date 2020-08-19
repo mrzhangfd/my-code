@@ -13,50 +13,64 @@ import java.util.concurrent.locks.ReentrantLock;
 
 
 public class ProducerConsumerPattern_1 {
-    PriorityQueue<Integer> queue=new PriorityQueue<>(10);
-    Lock lock=new ReentrantLock();
+    //充当缓冲区
+    static PriorityQueue<Integer> queue=new PriorityQueue<>(10);
 
-    class Consumer extends Thread{
+
+    static class Consumer extends Thread{
         @Override
         public void run(){
             while (true){
                 synchronized(queue){
+                    //判断
                     while (queue.size()==0){
                         try {
+                            //阻塞
                             queue.wait();
                         } catch (InterruptedException e) {
                             queue.notify();
                             e.printStackTrace();
                         }
                     }
-                    queue.poll();
+                   //干活
+                    System.out.println(queue.poll());
 
                     //唤醒一个正在等待此对象（queque）的monitor线程。
                     queue.notify();
                 }
-
             }
         }
     }
 
-    class Producer extends Thread{
+    static class Producer extends Thread{
         @Override
         public void run(){
             while (true){
                 synchronized (queue){
+                    //判断
                     while (queue.size()==10){
                         try {
+                            //阻塞
                             queue.wait();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                             queue.notify();
                         }
                     }
-                    queue.offer(1);
+                    //干活
+                    System.out.println(queue.offer(1));
+                    //唤醒
                     queue.notify();
                 }
             }
         }
+    }
+
+    public static void main(String[] args) {
+        Consumer consumer=new Consumer();
+        Producer producer=new Producer();
+        consumer.start();
+        producer.start();
     }
 }
 

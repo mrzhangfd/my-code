@@ -108,7 +108,7 @@ public class DP {
         }
         int len = nums.length;
         int[] dp = new int[len];
-        Arrays.fill(nums,1);
+        Arrays.fill(nums, 1);
         int res = 0;
         for (int i = 1; i < len; i++) {
             for (int j = 0; j <= i; j++) {
@@ -122,11 +122,46 @@ public class DP {
     }
 
 
+    /**
+     * 背包问题
+     *
+     * @param n     物品数量
+     * @param goods 物品的数组
+     * @param c     背包容量
+     * @return
+     */
+    public static int packaged(int n, int[][] goods, int c) {
+        //dp[i][j] 表示前i个物品 放到j容量的包中 获得的最大价值。
+        int[][] dp = new int[n + 1][c + 1];
+
+        for (int i = 0; i < n + 1; i++) {
+            for (int j = 0; j < c + 1; j++) {
+                if (i == 0 || j == 0) {
+                    dp[i][j] = 0;
+                } else {
+                    int w = goods[i - 1][0];
+                    int v = goods[i - 1][1];
+                    if (j >= w) {
+                        dp[i][j] = Math.max(dp[i - 1][j - w] + v, dp[i - 1][j]);
+                    } else {
+                        dp[i][j] = dp[i - 1][j];
+                    }
+
+                }
+
+            }
+        }
+        return dp[n][c];
+    }
+
     public static void main(String[] args) {
         DP dp = new DP();
-        int[][] grid = new int[][]{{1, 3, 1}, {1, 5, 1}, {4, 2, 1}};
+        int[][] googs = {{1, 6}, {2, 9}, {3, 13}};
+        System.out.println((int)5.90);
+        //System.out.println(packaged(3, googs, 5));
+        /*int[][] grid = new int[][]{{1, 3, 1}, {1, 5, 1}, {4, 2, 1}};
         int[] nums={10,9,2,5,3,7,101,18};
-        System.out.println(dp.lengthOfLIS(nums));
+        System.out.println(dp.lengthOfLIS(nums));*/
 
 
     }

@@ -127,39 +127,6 @@ public class Solution {
 
 
     /**
-     * 顺时针打印矩阵
-     *
-     * @param matrix
-     * @return
-     */
-    public ArrayList<Integer> printMatrix(int[][] matrix) {
-        List<Integer> res = new ArrayList<>();
-        if (matrix == null) {
-            return new ArrayList<>();
-        }
-        int rowNum = matrix.length;
-        int colNum = matrix[0].length;
-
-        int row = 0, col = 0;
-
-        boolean left = false, up = false, down = false;
-        boolean right = true;
-        for (int i = 0; i < rowNum; i++) {
-            for (int j = 0; j < colNum; j++) {
-                if (right && j <= colNum - i) {
-                    res.add(matrix[i][j]);
-                }
-                right = false;
-
-            }
-        }
-
-
-        return null;
-
-    }
-
-    /**
      * 反转链表
      *
      * @param head
@@ -242,8 +209,6 @@ public class Solution {
      * @return
      */
     public int cutRope(int target) {
-
-
         return 1;
     }
 
@@ -355,11 +320,6 @@ public class Solution {
      * @return
      */
     public int FirstNotRepeatingChar(String str) {
-        Map<Character, Integer> map = new HashMap<>();
-        char[] chars = str.toCharArray();
-        for (char c : chars) {
-
-        }
 
         return 0;
     }
@@ -380,8 +340,6 @@ public class Solution {
         }
 
         return Fibonacci(n - 1) + Fibonacci(n - 2);
-
-
     }
 
 

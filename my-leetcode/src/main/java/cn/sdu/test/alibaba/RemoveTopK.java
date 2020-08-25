@@ -1,4 +1,4 @@
-package cn.sdu.alibaba;
+package cn.sdu.test.alibaba;
 
 import java.util.ArrayList;
 import java.util.Collections;

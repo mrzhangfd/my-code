@@ -12,6 +12,7 @@
         <module>my-leetcode</module>
         <module>my-spring</module>
         <module>my-juc</module>
+        <module>my-jvm</module>
     </modules>
 
 

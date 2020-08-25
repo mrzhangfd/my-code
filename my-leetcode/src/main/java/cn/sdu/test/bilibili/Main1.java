@@ -1,4 +1,4 @@
-package cn.sdu.bilibili;
+package cn.sdu.test.bilibili;
 
 /**
  * 算24点

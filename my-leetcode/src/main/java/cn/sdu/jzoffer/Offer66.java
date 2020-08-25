@@ -646,6 +646,24 @@ public class Offer66 {
         return ugly[index-1];
     }
 
+    //调整数组顺序 使奇数位于偶数前面
+    public void reOrderArray(int [] array) {
+        if (array==null || array.length==0){
+            return;
+        }
+
+        for(int i=0;i<array.length;i++){
+            if(array[i]%2==1){
+                continue;
+            }
+            for(int j=i+1;j<array.length;j++){
+                if(array[j]%2==1){
+
+                }
+            }
+        }
+
+    }
 
     public static void main(String[] args) {
         Offer66 offer66 = new Offer66();

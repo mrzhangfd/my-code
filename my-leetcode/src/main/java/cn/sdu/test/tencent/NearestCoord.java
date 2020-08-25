@@ -42,7 +42,7 @@ public class NearestCoord {
                 Coord tempCoord = maxHeap.peek();
                 double d1 = calDistance(coord, e);
                 double d2 = calDistance(tempCoord, e);
-                if (d1 > d2) {
+                if (d1 < d2) {
                     maxHeap.poll();
                     maxHeap.offer(coord);
                 }

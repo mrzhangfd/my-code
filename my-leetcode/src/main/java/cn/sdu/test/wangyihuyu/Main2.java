@@ -42,8 +42,6 @@ public class Main2 {
                         r=j;
                         c=k;
                     }
-
-
                 }
             }
             rowSum[r]=0;

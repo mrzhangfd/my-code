@@ -154,6 +154,15 @@ public class DP {
         return dp[n][c];
     }
 
+   /* //1262 可被3整数的最大和
+    public int maxSumDivThree(int[] nums) {
+        int[] dp=new int[nums.length];
+        for(int i=0;i<nums.length;i++){
+
+        }
+
+    }*/
+
     public static void main(String[] args) {
         DP dp = new DP();
         int[][] googs = {{1, 6}, {2, 9}, {3, 13}};

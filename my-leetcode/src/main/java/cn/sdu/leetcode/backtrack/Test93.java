@@ -74,8 +74,38 @@ public class Test93 {
 
     }
 
+    //复原ip 3刷
+    public static List<String> restoreIpAddresses2(String s) {
+        List<String> res=new ArrayList<>();
+        List<String> temp=new ArrayList<>();
+
+        helper2(res,temp,0,0,s);
+        return res;
+    }
+
+    private static void helper2(List<String> res, List<String> temp, int start, int count, String s) {
+        if(temp.size()>4){
+            return;
+        }
+        if(count==4 && start==s.length()){
+            String ss=String.join(".",temp);
+            res.add( ss);
+        }
+
+        for(int i=start;i<s.length()&& i<=start+3;i++){
+            String str=s.substring(start,i+1);
+            if(legal(str)){
+                temp.add(str);
+                helper2(res,temp,i+1,count+1,s);
+                temp.remove(temp.size()-1);
+            }
+
+        }
+    }
+
     public static void main(String[] args) {
         String s = "25525511135";
-        System.out.println(restoreIpAddresses1(s));
+
+        System.out.println(restoreIpAddresses2(s));
     }
 }

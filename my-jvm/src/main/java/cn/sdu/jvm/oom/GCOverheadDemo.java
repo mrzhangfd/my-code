@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class GCOverheadDemo {
     public static void main(String[] args) {
-        int i=0;
+      /*  int i=0;
         List<String> list=new ArrayList<>();
 
         try{
@@ -29,7 +29,12 @@ public class GCOverheadDemo {
             e.printStackTrace();//Exception in thread "main" java.lang.OutOfMemoryError: GC overhead limit exceeded
         }finally{
             System.out.println(i);
-        }
-
+        }*/
+        Integer a=new Integer(2);
+        Integer d=new Integer(2);
+        Integer b=2;
+        int c=2;
+        System.out.println(a==b);
+        System.out.println(a==c);
     }
 }

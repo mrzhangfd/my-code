@@ -10,6 +10,7 @@
         <module name="my-spring" />
         <module name="my-juc" />
         <module name="my-leetcode" />
+        <module name="my-jvm-juc" />
         <module name="my-jvm" />
       </profile>
     </annotationProcessing>

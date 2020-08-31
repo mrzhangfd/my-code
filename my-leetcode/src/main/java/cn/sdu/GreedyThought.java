@@ -1,5 +1,9 @@
 package cn.sdu;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,7 +14,7 @@ import java.util.List;
  * Created on 2020/4/20 12:29.
  */
 
-public class GreedyThought {
+public class GreedyThought  implements Externalizable {
 
     //455. 分发饼干
     public int findContentChildren(int[] g, int[] s) {
@@ -30,12 +34,33 @@ public class GreedyThought {
     }
 
     //435. 无重叠区间
-    public int eraseOverlapIntervals(int[][] intervals) {
-        int ret = 0;
-        for (int[] array : intervals) {
-
+    public  static int eraseOverlapIntervals(int[][] intervals) {
+        if(intervals==null || intervals.length==0 || intervals[0].length==0){
+            return 0;
         }
+        int ret = 0;
+        Arrays.sort(intervals,(n1,n2)->{
+            return n1[1]-n2[1];
+        });
+        int end=intervals[0][1];
+        //至少有一个区间不相交
+        int count=1;
+        for (int[] interval : intervals) {
+            if(interval[0]>=end){
+                count++;
+                end=interval[1];
+            }
+        }
+
+        ret=intervals.length-count;
+        System.out.println(ret);
+
         return ret;
+    }
+
+    public static void main(String[] args) {
+        int[][] num={{1,2}};
+        eraseOverlapIntervals(num);
     }
 
     public boolean isSubsequence(String s, String t) {
@@ -56,4 +81,13 @@ public class GreedyThought {
     }
 
 
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+
+    }
 }

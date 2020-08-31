@@ -3,6 +3,8 @@
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/my-juc/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/my-juc/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my-jvm-juc/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/my-jvm-juc/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/my-jvm/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/my-jvm/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/my-leetcode" charset="UTF-8" />

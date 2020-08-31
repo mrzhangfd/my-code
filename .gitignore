@@ -1,4 +1,12 @@
 # Project exclude paths
-/my-leetcode-arraylist/target/
 .project
 target/
+.idea
+my-juc/src/main/java/cn/sdu/juc/collections/test.java
+my-juc/src/main/resources/
+my-juc/src/test/
+my-jvm/src/main/resources/
+my-jvm/src/test/
+my-spring/src/main/resources/
+my-spring/src/test/
+

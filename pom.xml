@@ -5,11 +5,45 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.sdu.icat</groupId>
-    <artifactId>my-leetcode</artifactId>
+    <artifactId>my-code</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>my-leetcode-linkedlist</module>
+
+        <module>my-leetcode</module>
+        <module>my-spring</module>
+        <module>my-juc</module>
+        <module>my-jvm</module>
+        <module>my-jvm-juc</module>
+
     </modules>
 
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <encoding>UTF-8</encoding>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <!--heepclient-->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.8</version>
+        </dependency>
+        <!--fastjson-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.60</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+        </dependency>
+    </dependencies>
 </project>

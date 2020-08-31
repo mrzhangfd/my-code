@@ -13,7 +13,7 @@
         <module>my-spring</module>
         <module>my-juc</module>
         <module>my-jvm</module>
-        <module><![CDATA[my-jvm&juc]]></module>
+        <module>my-jvm-juc</module>
     </modules>
 
 

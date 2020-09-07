@@ -7,8 +7,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="my-spring" />
         <module name="my-juc" />
+        <module name="my-spring" />
         <module name="my-leetcode" />
         <module name="my-jvm-juc" />
         <module name="my-jvm" />

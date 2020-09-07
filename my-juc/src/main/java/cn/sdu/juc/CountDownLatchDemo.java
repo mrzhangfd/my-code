@@ -11,13 +11,14 @@ import java.util.concurrent.Executors;
  * @author icatzfd
  * Created on 2020/7/23 14:22.
  */
-public class CountDownLatchDemo  implements Runnable{
-    static final CountDownLatch latch=new CountDownLatch(10);
-    static final CountDownLatchDemo demo=new CountDownLatchDemo();
+public class CountDownLatchDemo implements Runnable {
+    static final CountDownLatch latch = new CountDownLatch(10);
+    static final CountDownLatchDemo demo = new CountDownLatchDemo();
+
     @Override
     public void run() {
         try {
-            Thread.sleep(new Random().nextInt(10)*1000);
+            Thread.sleep(new Random().nextInt(10) * 1000);
             System.out.println("check complete");
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -29,9 +30,9 @@ public class CountDownLatchDemo  implements Runnable{
 
     }
 
-    public static void main(String[] args) throws InterruptedException{
-        ExecutorService exec= Executors.newFixedThreadPool(10);
-        for (int i=0;i<10;i++){
+    public static void main(String[] args) throws InterruptedException {
+        ExecutorService exec = Executors.newFixedThreadPool(10);
+        for (int i = 0; i < 10; i++) {
             exec.submit(demo);
         }
         //等待检查

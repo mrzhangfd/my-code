@@ -12,7 +12,7 @@ import java.util.*;
  * @author icatzfd
  * Created on 2020/6/27 10:51.
  */
-public class Offer66 {
+public class Offer66_second {
 
     //矩阵中的路径
     public boolean hasPath(char[] matrix, int rows, int cols, char[] str) {
@@ -118,6 +118,15 @@ public class Offer66 {
     //右移：最右边的一位舍弃，最左边补符号位。
     //
     //左移：最左边的一位舍弃，最右边补0。
+    public int NumberOf1(int n) {
+        int res = 0;
+        while (n != 0) {
+            n &= (n - 1);
+            res++;
+        }
+        return res;
+    }
+
 
     //栈的压入、弹出序列
     public boolean IsPopOrder(int[] pushA, int[] popA) {
@@ -263,7 +272,7 @@ public class Offer66 {
         return left;
     }
 
-    private void swap(int[] nums, int left, int right) {
+    private static void swap(int[] nums, int left, int right) {
         int t = nums[left];
         nums[left] = nums[right];
         nums[right] = t;
@@ -641,55 +650,231 @@ public class Offer66 {
             ugly[i] = temp;
 
         }
-
-
-        return ugly[index-1];
+        return ugly[index - 1];
     }
 
     //调整数组顺序 使奇数位于偶数前面
-    public void reOrderArray(int [] array) {
-        if (array==null || array.length==0){
+    public static void reOrderArray(int[] array) {
+        if (array == null || array.length == 0) {
             return;
         }
 
-        for(int i=0;i<array.length;i++){
-            if(array[i]%2==1){
-                continue;
-            }
-            for(int j=i+1;j<array.length;j++){
-                if(array[j]%2==1){
-
+        for (int i = 0; i < array.length; i++) {
+            boolean flag = false;
+            for (int j = 0; j < array.length - 1; j++) {
+                if (array[j] % 2 == 0 && array[j + 1] % 2 == 1) {
+                    flag = true;
+                    swap(array, j, j + 1);
                 }
             }
+            if (!flag) {
+                break;
+            }
         }
+        System.out.println(Arrays.toString(array));
+    }
+
+
+    //jz2 替换空格
+    public String replaceSpace(StringBuffer str) {
+        StringBuffer res = new StringBuffer();
+        String ss = str.toString();
+        for (int i = 0; i < ss.length(); i++) {
+            if (ss.charAt(i) != ' ') {
+                res.append(ss.charAt(i));
+            } else {
+                res.append("%20");
+            }
+        }
+        return res.toString();
+    }
+
+    //jz3 从尾到头打印链表
+    public static ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
+        ArrayList<Integer> res = new ArrayList<>();
+        if (listNode == null) {
+            return res;
+        }
+        printListFromTailToHeadHelper(listNode, res);
+        return res;
+    }
+
+    private static void printListFromTailToHeadHelper(ListNode listNode, ArrayList<Integer> res) {
+
+        if (listNode.next != null) {
+            printListFromTailToHeadHelper(listNode.next, res);
+        }
+        res.add(listNode.val);
+
+    }
+
+    //数值的整数次方
+    public static double Power(double base, int exponent) {
+        if (base == 0) {
+            return 0;
+        }
+        if (exponent < 0 && base == 0) {
+            throw new RuntimeException("分母不能为0");
+        }
+        boolean flag = false;
+        if (exponent < 0) {
+            flag = true;
+            exponent = -exponent;
+        }
+        double res = 1;
+        while (exponent != 0) {
+            if ((exponent & 1) == 1) {
+                res *= base;
+            }
+            base *= base;
+            exponent = exponent >> 1;
+        }
+        return flag ? 1 / res : res;
+    }
+
+    //倒数第k个节点
+    public ListNode FindKthToTail(ListNode head, int k) {
+        if (head == null || k == 0) {
+            return null;
+        }
+
+        ListNode fast = head;
+        ListNode low = head;
+
+        while (k != 1) {
+            k--;
+            fast = fast.next;
+            if (fast == null) {
+                return null;
+            }
+        }
+
+        while (low.next != null && fast.next != null) {
+            low = low.next;
+            fast = fast.next;
+        }
+        return low;
+
+
+    }
+
+    //反转链表
+    public ListNode ReverseList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode pre = null;
+        ListNode next;
+        while (head != null) {
+            next = head.next;
+            head.next = pre;
+            pre = head;
+            head = next;
+        }
+        return pre;
+
+
+    }
+
+    //合并两个排序的链表
+    public ListNode Merge(ListNode list1, ListNode list2) {
+        if (list1 == null && list2 == null) {
+            return null;
+        }
+
+        ListNode dummyHead = new ListNode(-1);
+        ListNode cur = dummyHead;
+        while (list1 != null || list2 != null) {
+            if (list1 == null) {
+                cur.next = list2;
+                break;
+            }
+            if (list2 == null) {
+                cur.next = list1;
+                break;
+            }
+            cur.next = list1.val <= list2.val ? list1 : list2;
+            if (cur.next == list1) {
+                list1 = list1.next;
+            } else {
+                list2 = list2.next;
+            }
+
+
+            cur = cur.next;
+        }
+        return dummyHead.next;
+    }
+
+    //合并k个升序链表
+    public ListNode mergeKLists(ListNode[] lists) {
+        ListNode dummyHead = new ListNode(-1);
+        ListNode cur = dummyHead;
+        if (lists == null || lists.length == 0) {
+            return null;
+        }
+        int minIdx = 0;
+        int count;
+        int min = Integer.MAX_VALUE;
+        while (true) {
+            count = 0;
+            min = Integer.MAX_VALUE;
+            for (int i = 0; i < lists.length; i++) {
+                if (lists[i] == null) {
+                    count++;
+                    continue;
+                }
+                if (lists[i].val < min) {
+                    min = lists[i].val;
+                    minIdx = i;
+                }
+            }
+            if (count == lists.length) {
+                break;
+            }
+            cur.next = lists[minIdx];
+            cur = cur.next;
+            lists[minIdx] = lists[minIdx].next;
+        }
+        return dummyHead.next;
+
+
+    }
+
+    //树的子结构
+    public boolean HasSubtree(TreeNode root1, TreeNode root2) {
+        boolean flag = false;
+        if (root1 != null && root2 != null) {
+            if(root1.val==root2.val){
+                flag=hasSubtreeHelper(root1.left,root2.left) && hasSubtreeHelper(root1.right,root2.right);
+            }
+                if(!flag) {
+                    flag=HasSubtree(root1.left,root2) || HasSubtree(root1.right,root2);
+                }
+        }
+        return flag;
+    }
+
+    private boolean hasSubtreeHelper(TreeNode root1, TreeNode root2) {
+        if (root1 == null && root2 != null) {
+            return false;
+        }
+        if (root2 == null) {
+            return true;
+        }
+        if (root1.val != root2.val) {
+            return false;
+        }
+
+        return hasSubtreeHelper(root1.left, root2.left) && hasSubtreeHelper(root1.right, root2.right);
 
     }
 
     public static void main(String[] args) {
-        Offer66 offer66 = new Offer66();
-//        int[] arr = {6501, 6828, 6963, 7036, 7422, 7674, 8146, 8468, 8704, 8717, 9170, 9359, 9719, 9895, 9896, 9913, 9962, 154, 293, 334, 492,
-//                1323, 1479, 1539, 1727, 1870, 1943, 2383, 2392, 2996, 3282, 3812, 3903, 4465, 4605, 4665, 4772, 4828, 5142, 5437, 5448, 5668,
-//                5706, 5725, 6300, 6335};
-        int[] pushA = {1, 2, 3, 4, 5};
-        int[] popA = {4, 5, 3, 2, 1};
-        int[] seq = {5, 4, 3, 2, 1};
-        int[] seq1 = {6, -3, -2, 7, -15, 1, 2, 2};
-        int[] num = {1, 2, 3, 3, 3, 3, 4, 5};
-        int[] nums = {0, 0, 8, 5, 4};
-        char[] matrix = {'a', 'b', 'c', 'e'};
-        char[] str = {'a', 'b'};
-
-        int[] numss = {2, 3, 4, 2, 6, 2, 5, 1};
-        System.out.println(cutRope(7));
-        //System.out.println(offer66.maxInWindows1(numss,3));
-        // System.out.println(offer66.hasPath(matrix, 2, 2, str));
-//        String ss = "ss";
-//        Queue<Integer> queue = new LinkedList<>();
-//        System.out.println(Integer.valueOf('0'));
-//        System.out.println(Integer.valueOf('a'));
-//        System.out.println(Integer.valueOf('z'));
-//        System.out.println(Integer.valueOf('A'));
-//        System.out.println(Integer.valueOf('Z'));
+        double base = 3;
+        int exp = 5;
+        int[] arr = {1, 3, 2, 4, 5, 7, 6};
+        reOrderArray(arr);
 
 
     }

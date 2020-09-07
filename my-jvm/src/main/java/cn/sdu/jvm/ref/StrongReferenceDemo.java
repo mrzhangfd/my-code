@@ -8,11 +8,11 @@ package cn.sdu.jvm.ref;
  */
 public class StrongReferenceDemo {
     public static void main(String[] args) {
-        Object ob1=new Object();
+        Object ob1 = new Object();
         //强引用
-        Object ob2=ob1;
+        Object ob2 = ob1;
 
-        ob1=null;
+        ob1 = null;
         //ob1 置空，垃圾回收会回收掉ob1
 
         System.gc();

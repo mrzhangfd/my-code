@@ -34,7 +34,7 @@ public class ProducerConsumerPattern_2 {
                     }
                     queue.poll();
                     notFull.signal();
-                }finally {
+                } finally {
                     lock.unlock();
                 }
 
@@ -42,13 +42,13 @@ public class ProducerConsumerPattern_2 {
         }
     }
 
-    class Producer extends Thread{
+    class Producer extends Thread {
         @Override
-        public void run(){
-            while (true){
+        public void run() {
+            while (true) {
                 lock.lock();
-                try{
-                    while (queue.size()==10){
+                try {
+                    while (queue.size() == 10) {
                         try {
                             notFull.await();
                         } catch (InterruptedException e) {
@@ -57,7 +57,7 @@ public class ProducerConsumerPattern_2 {
                     }
                     queue.offer(1);
                     notEmpty.signal();
-                }finally {
+                } finally {
                     lock.unlock();
                 }
             }

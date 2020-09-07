@@ -430,6 +430,7 @@ public class Offer66Class {
     }
 
 
+    //树的子结构
     public boolean HasSubtree(TreeNode root1, TreeNode root2) {
         boolean res = false;
         if (root1 != null && root2 != null) {

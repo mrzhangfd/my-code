@@ -9,20 +9,20 @@ import java.util.WeakHashMap;
  */
 public class WeakHashMapDemo {
     public static void main(String[] args) {
-       // myHashMap();
+        // myHashMap();
         myWeakHashMap();
     }
 
     private static void myWeakHashMap() {
 
-        WeakHashMap<Integer,String> map=new WeakHashMap<Integer,String>();
+        WeakHashMap<Integer, String> map = new WeakHashMap<Integer, String>();
 
-        Integer key=new Integer(2);
-        String value="WeakHashMap";
-        map.put(key,value);
+        Integer key = new Integer(2);
+        String value = "WeakHashMap";
+        map.put(key, value);
         System.out.println(map);
 
-        key=null;
+        key = null;
         System.out.println(map);
 
         //手动gc，
@@ -33,14 +33,14 @@ public class WeakHashMapDemo {
 
     private static void myHashMap() {
 
-        HashMap<Integer,String> map=new HashMap<>();
+        HashMap<Integer, String> map = new HashMap<>();
 
-        Integer key=new Integer(1);
-        String value="HashMap";
-        map.put(key,value);
+        Integer key = new Integer(1);
+        String value = "HashMap";
+        map.put(key, value);
         System.out.println(map);
 
-        key=null;
+        key = null;
         System.out.println(map);
 
         //手动gc 后，map 不变

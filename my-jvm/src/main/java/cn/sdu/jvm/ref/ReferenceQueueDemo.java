@@ -9,12 +9,12 @@ import java.lang.ref.WeakReference;
  */
 public class ReferenceQueueDemo {
     public static void main(String[] args) throws InterruptedException {
-        Object o1=new Object();
+        Object o1 = new Object();
         //引用队列
-        ReferenceQueue<Object> referenceQueue=new ReferenceQueue<>();
+        ReferenceQueue<Object> referenceQueue = new ReferenceQueue<>();
 
         //弱引用
-        WeakReference<Object> weakReference=new WeakReference<>(o1,referenceQueue);
+        WeakReference<Object> weakReference = new WeakReference<>(o1, referenceQueue);
 
         //gc之前
         System.out.println(o1);
@@ -22,7 +22,7 @@ public class ReferenceQueueDemo {
         System.out.println(referenceQueue.poll());
 
         //gc之后,o1 会被放到引用队列
-        o1=null;
+        o1 = null;
         System.gc();
         Thread.sleep(500);
         System.out.println(o1);

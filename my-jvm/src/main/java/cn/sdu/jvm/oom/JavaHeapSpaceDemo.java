@@ -8,15 +8,15 @@ import java.util.Random;
  */
 public class JavaHeapSpaceDemo {
     public static void main(String[] args) {
-       String str="abc";
-       while (true){
+        String str = "abc";
+        while (true) {
 
-           str+= str+new Random().nextInt(111111111)+new Random().nextInt(22222222);
+            str += str + new Random().nextInt(111111111) + new Random().nextInt(22222222);
 
-           //这个native方法是向运行时常量池中添加内容，
-           str.intern();
-       }
-       //Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+            //这个native方法是向运行时常量池中添加内容，
+            str.intern();
+        }
+        //Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
         //堆溢出
     }
 

@@ -14,16 +14,16 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class ProducerConsumerPattern_1 {
     //充当缓冲区
-    static PriorityQueue<Integer> queue=new PriorityQueue<>(10);
+    static PriorityQueue<Integer> queue = new PriorityQueue<>(10);
 
 
-    static class Consumer extends Thread{
+    static class Consumer extends Thread {
         @Override
-        public void run(){
-            while (true){
-                synchronized(queue){
+        public void run() {
+            while (true) {
+                synchronized (queue) {
                     //判断
-                    while (queue.size()==0){
+                    while (queue.size() == 0) {
                         try {
                             //阻塞
                             queue.wait();
@@ -32,7 +32,7 @@ public class ProducerConsumerPattern_1 {
                             e.printStackTrace();
                         }
                     }
-                   //干活
+                    //干活
                     System.out.println(queue.poll());
 
                     //唤醒一个正在等待此对象（queque）的monitor线程。
@@ -42,13 +42,13 @@ public class ProducerConsumerPattern_1 {
         }
     }
 
-    static class Producer extends Thread{
+    static class Producer extends Thread {
         @Override
-        public void run(){
-            while (true){
-                synchronized (queue){
+        public void run() {
+            while (true) {
+                synchronized (queue) {
                     //判断
-                    while (queue.size()==10){
+                    while (queue.size() == 10) {
                         try {
                             //阻塞
                             queue.wait();
@@ -67,8 +67,8 @@ public class ProducerConsumerPattern_1 {
     }
 
     public static void main(String[] args) {
-        Consumer consumer=new Consumer();
-        Producer producer=new Producer();
+        Consumer consumer = new Consumer();
+        Producer producer = new Producer();
         consumer.start();
         producer.start();
     }

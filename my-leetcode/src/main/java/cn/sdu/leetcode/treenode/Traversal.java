@@ -96,7 +96,6 @@ public class Traversal {
 
     public List<Integer> inOrder(TreeNode root) {
         Set<Integer> set=new HashSet<>();
-        Iterator<Integer> integerIterator=set.iterator();
         if (root == null) {
             return new ArrayList<>();
         }
@@ -115,7 +114,7 @@ public class Traversal {
         return list;
     }
 
-    //后序 迭代版  根据根右左遍历，然后反转链表
+    //后序 迭代版  根据 根右左遍历，然后反转链表
    /* public List<Integer> nextOrder(TreeNode root) {
         List<Integer> list = new ArrayList<>();
         Stack<TreeNode> stack = new Stack<>();

@@ -1,4 +1,4 @@
-package cn.sdu;
+package cn.sdu.leetcode.array;
 
 /**
  * @author icatzfd

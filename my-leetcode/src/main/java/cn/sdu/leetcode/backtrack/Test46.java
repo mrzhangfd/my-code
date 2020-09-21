@@ -1,4 +1,4 @@
-package cn.sdu;
+package cn.sdu.leetcode.backtrack;
 
 import java.util.*;
 
@@ -9,8 +9,6 @@ import java.util.*;
  * Created on 2019/10/29 22:47.
  */
 public class Test46 {
-    public Test46() {
-    }
 
     // curSize 表示当前的路径 path 里面有多少个元素
     private void generatePermution(int[] nums, boolean[] visited, int curSize, int len, Stack<Integer> path, List<List<Integer>> res) {

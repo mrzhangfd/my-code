@@ -21,6 +21,8 @@ public class SemaphoreDemo {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }finally {
+                    //释放必须放在finally中，防止try 中出现异常，信号量就不会释放了
+
                     semaphore.release();
                 }
             }, String.valueOf(i)).start();

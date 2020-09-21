@@ -1,5 +1,7 @@
 package cn.sdu.test.xiaohongshu;
 
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Scanner;
 
 /**
@@ -10,6 +12,7 @@ import java.util.Scanner;
  */
 public class Main2 {
     public static void main(String[] args) {
+        Queue<Integer> queue=new PriorityQueue<>();
         Scanner sc = new Scanner(System.in);
         int m = sc.nextInt();
 

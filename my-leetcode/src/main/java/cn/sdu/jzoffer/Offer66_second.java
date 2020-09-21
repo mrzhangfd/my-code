@@ -3,6 +3,7 @@ package cn.sdu.jzoffer;
 import cn.sdu.ListNode;
 import cn.sdu.TreeNode;
 
+import javax.swing.plaf.nimbus.State;
 import java.util.*;
 
 
@@ -359,7 +360,7 @@ public class Offer66_second {
     }
 
     //滑动窗口的最大值
-    public ArrayList<Integer> maxInWindows(int[] num, int size) {
+    public ArrayList<Integer> maxInWindows2(int[] num, int size) {
         if (num == null || num.length == 0 || size <= 0 || size > num.length) {
             return new ArrayList<>();
         }
@@ -845,12 +846,12 @@ public class Offer66_second {
     public boolean HasSubtree(TreeNode root1, TreeNode root2) {
         boolean flag = false;
         if (root1 != null && root2 != null) {
-            if(root1.val==root2.val){
-                flag=hasSubtreeHelper(root1.left,root2.left) && hasSubtreeHelper(root1.right,root2.right);
+            if (root1.val == root2.val) {
+                flag = hasSubtreeHelper(root1.left, root2.left) && hasSubtreeHelper(root1.right, root2.right);
             }
-                if(!flag) {
-                    flag=HasSubtree(root1.left,root2) || HasSubtree(root1.right,root2);
-                }
+            if (!flag) {
+                flag = HasSubtree(root1.left, root2) || HasSubtree(root1.right, root2);
+            }
         }
         return flag;
     }
@@ -870,12 +871,337 @@ public class Offer66_second {
 
     }
 
-    public static void main(String[] args) {
-        double base = 3;
-        int exp = 5;
-        int[] arr = {1, 3, 2, 4, 5, 7, 6};
-        reOrderArray(arr);
+    //滑动窗口最大值
+    public static ArrayList<Integer> maxInWindows(int[] num, int size) {
+        ArrayList<Integer> ret = new ArrayList<>();
 
+        if (num == null || num.length == 0 || size <= 0 || size > num.length) {
+            return null;
+        }
+
+
+        //用来存储当前窗口最大值索引
+        Deque<Integer> queue = new LinkedList<>();
+
+        for (int i = 0; i < num.length; i++) {
+            while (!queue.isEmpty() && num[queue.peekLast()] < num[i]) {
+                queue.pollLast();
+            }
+            queue.offer(i);
+            //当队列的最后一个不在窗口中，就删除
+            if (queue.peekFirst() <= i - size) {
+                queue.pollFirst();
+            }
+            //当i<size -1 时候，窗口有可能不满
+            if (i >= size - 1) {
+                ret.add(num[queue.peekFirst()]);
+            }
+        }
+        return ret;
+    }
+
+
+    //二叉树的镜像
+    public static void Mirror(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        MirrorHelper(root);
+    }
+
+    private static TreeNode MirrorHelper(TreeNode node) {
+        if (node == null) {
+            return null;
+        }
+        TreeNode left = node.left;
+        TreeNode right = node.right;
+        node.right = MirrorHelper(left);
+        node.left = MirrorHelper(right);
+        return node;
+    }
+
+
+    //栈的压入、弹出序列
+    public static boolean IsPopOrder1(int[] pushA, int[] popA) {
+        if (popA.length != pushA.length) {
+            return false;
+        }
+        Stack<Integer> stack = new Stack<>();
+        int idx = 0;
+        for (int i = 0; i < pushA.length; i++) {
+            stack.push(pushA[i]);
+            while (!stack.isEmpty() && popA[idx] == stack.peek()) {
+                stack.pop();
+                idx++;
+            }
+        }
+        return idx == popA.length;
+
+    }
+
+    //二叉搜索树的后序遍历序列
+
+    /**
+     * BST的后序序列的合法序列是，对于一个序列S，最后一个元素是x （也就是根），如果去掉最后一个元素的序列为T，
+     * 那么T满足：T可以分成两段，前一段（左子树）小于x，后一段（右子树）大于x，且这两段（子树）都是合法的后序序列。完美的递归定义 : ) 。
+     *
+     * @param sequence
+     * @return
+     */
+    public static boolean VerifySquenceOfBST1(int[] sequence) {
+        if (sequence == null || sequence.length == 0) {
+            return true;
+        }
+        int len = sequence.length;
+        return judge(sequence, 0, len - 1);
+    }
+
+    private static boolean judge(int[] sequence, int start, int end) {
+        if (start >= end) {
+            return true;
+        }
+        int idx = start;
+        while (idx < end && sequence[idx] < sequence[end]) {
+            idx++;
+        }
+        for (int i = idx; i <= end; i++) {
+            if (sequence[i] < sequence[end]) {
+                return false;
+            }
+        }
+
+
+        return judge(sequence, start, idx - 1) & judge(sequence, idx, end - 1);
+    }
+
+    //二叉树中和为某一值的路径
+    public List<List<Integer>> FindPath2(TreeNode root, int target) {
+
+        List<List<Integer>> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        ArrayList<Integer> path = new ArrayList<>();
+        findPathHelper2(root, target, path, res);
+
+        return res;
+    }
+
+    private void findPathHelper2(TreeNode node, int target, ArrayList<Integer> path, List<List<Integer>> res) {
+        if (node == null) {
+            return;
+        }
+        target -= node.val;
+        path.add(node.val);
+        if (target == 0 && node.left == null && node.right == null) {
+            res.add(new ArrayList<>(path));
+
+        }
+        findPathHelper2(node.left, target, path, res);
+        findPathHelper2(node.right, target, path, res);
+        path.remove(path.size() - 1);
+
+    }
+
+    //二叉搜索树与双向链表
+    public TreeNode Convert1(TreeNode pRootOfTree) {
+
+
+        if (pRootOfTree == null) {
+            return null;
+        }
+        List<TreeNode> list = new ArrayList<>();
+        convertHelper(pRootOfTree, list);
+        for (int i = 0; i < list.size(); i++) {
+            if (i == 0) {
+                list.get(i).right = list.get(i + 1);
+
+            } else if (i == list.size() - 1) {
+
+                list.get(i).left = list.get(i - 1);
+            } else {
+                list.get(i).left = list.get(i - 1);
+                list.get(i).right = list.get(i + 1);
+            }
+
+        }
+        return list.get(0);
+    }
+
+    private void convertHelper(TreeNode pRootOfTree, List<TreeNode> list) {
+        if (pRootOfTree == null) {
+            return;
+        }
+        convertHelper(pRootOfTree.left, list);
+        list.add(pRootOfTree);
+        convertHelper(pRootOfTree.right, list);
+    }
+
+    //字符串的排列
+    public static String[] Permutation(String str) {
+        Set<String> res = new HashSet<>();
+        if (str == null || str.length() == 0) {
+            return (String[]) res.toArray();
+        }
+        char[] chars = str.toCharArray();
+
+
+        permutationHelper(res, chars, 0);
+        String[] rr = res.toArray(new String[res.size()]);
+        Arrays.sort(rr);
+
+        return rr;
+    }
+
+    private static void permutationHelper(Set<String> res, char[] chars, int start) {
+        if (start == chars.length - 1) {
+            String temp = new String(chars);
+            res.add(temp);
+            return;
+        }
+        for (int i = start; i < chars.length; i++) {
+            swapStr(chars, i, start);
+            permutationHelper(res, chars, start + 1);
+            swapStr(chars, i, start);
+
+        }
+
+    }
+
+    private static void swapStr(char[] chars, int i, int start) {
+        char temp = chars[i];
+        chars[i] = chars[start];
+        chars[start] = temp;
+    }
+
+
+    public int MoreThanHalfNum_Solution(int[] nums) {
+        int flag = nums[0];
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (sum == 0) {
+                flag = nums[i];
+                sum++;
+            } else {
+                if (nums[i] != flag) {
+                    sum--;
+                } else {
+                    sum++;
+                }
+            }
+        }
+
+        int count = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == flag) {
+                count++;
+            }
+        }
+        if (count > nums.length / 2) {
+            return flag;
+        } else {
+            return 0;
+        }
+
+
+    }
+
+    //最小的k个数
+    public ArrayList<Integer> GetLeastNumbers_Solution1(int[] input, int k) {
+        return null;
+    }
+
+    //连续子数组的最大和
+    public static int FindGreatestSumOfSubArray1(int[] array) {
+        if (array == null || array.length == 0) {
+            return -1;
+        }
+        int n = array.length;
+        int[] dp = new int[n];
+        dp[0] = array[0];
+        int sum = 0;
+        int max = Integer.MIN_VALUE;
+        for (int i = 1; i < n; i++) {
+            dp[i] = Math.max(array[i], dp[i - 1] + array[i]);
+            max = Math.max(dp[i], max);
+
+        }
+        return max;
+    }
+
+    //把数组排成最小的数
+    public static String PrintMinNumber1(int[] numbers) {
+        Queue<Integer> queue = new PriorityQueue<>(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                String s1 = String.valueOf(o1) + String.valueOf(o2);
+                String s2 = String.valueOf(o2) + String.valueOf(o1);
+                return s1.compareTo(s2);
+
+            }
+        });
+        for (int i = 0; i < numbers.length; i++) {
+            queue.offer(numbers[i]);
+        }
+
+        StringBuilder res = new StringBuilder();
+        while (!queue.isEmpty()) {
+            res.append(queue.poll());
+        }
+        return res.toString();
+    }
+
+    //丑数
+    public static int GetUglyNumber_Solution1(int index) {
+        if (index <= 0) {
+            return 0;
+        }
+        int idx2 = 0;
+        int idx3 = 0;
+        int idx5 = 0;
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        while (list.size() < index) {
+            int temp = Math.min(Math.min(list.get(idx2) * 2, list.get(idx3) * 3), list.get(idx5) * 5);
+            list.add(temp);
+            if (temp == list.get(idx2) * 2) {
+                idx2++;
+            }
+            if (temp == list.get(idx3) * 3) {
+                idx3++;
+            }
+            if (temp == list.get(idx5) * 5) {
+                idx5++;
+            }
+        }
+        return list.get(index - 1);
+    }
+
+    //第一次只出现一次的字符
+    public int FirstNotRepeatingChar(String str) {
+        if (str == null || str.length() == 0) {
+            return -1;
+        }
+        int[] chars = new int[58];
+        for (int i = 0; i < str.length(); i++) {
+            char temp = str.charAt(i);
+            chars[temp - 'a']++;
+        }
+        int first=-1;
+        for (int i = 0; i < 128; i++) {
+            if(chars[i]==1){
+
+            }
+        }
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        int[] arrs = {332, 321};
+        System.out.println(Integer.valueOf('A'));
+        System.out.println(Integer.valueOf('Z'));
+        System.out.println(Integer.valueOf('a'));
+        System.out.println(Integer.valueOf('z'));
 
     }
 }

@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  * Created on 2020/8/17 23:21.
  */
 public class CyclicBarrierDemo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         // CyclicBarrier(int parties, Runnable barrierAction)
         //Runnable 函数式接口，java8开始，用lambda表达式
         CyclicBarrier cyclicBarrier=new CyclicBarrier(3,()->{

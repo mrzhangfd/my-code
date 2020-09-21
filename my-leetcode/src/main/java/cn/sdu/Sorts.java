@@ -79,8 +79,7 @@ public class Sorts {
     }
 
     public String frequencySort(String s) {
-        Lock lock=new ReentrantLock();
-        Condition condition;
+
         char[] chars = s.toCharArray();
         //1 使用hashmap 表示频率
         HashMap<Character, Integer> hashMap = new HashMap<>();

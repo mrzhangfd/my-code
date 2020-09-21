@@ -15,6 +15,7 @@
         <module>my-juc</module>
         <module>my-jvm</module>
         <module>my-jvm-juc</module>
+        <module>wangwenjun</module>
 
     </modules>
 

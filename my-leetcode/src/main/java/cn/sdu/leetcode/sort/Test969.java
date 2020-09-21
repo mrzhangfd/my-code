@@ -1,4 +1,6 @@
-package cn.sdu;
+package cn.sdu.leetcode.sort;
+
+import cn.sdu.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;

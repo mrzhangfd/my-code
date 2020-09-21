@@ -1,5 +1,7 @@
-package cn.sdu;
+package cn.sdu.leetcode.array;
 
+
+import cn.sdu.ListNode;
 
 /**
  * 807题

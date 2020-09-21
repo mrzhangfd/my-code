@@ -1,12 +1,10 @@
 package cn.sdu.juc.thread;
 
-import java.util.concurrent.locks.Lock;
-
 /**
  * 死锁
  * 两个或两个以上的进程在执行过程中，因资源争夺 造成的一种互相等待的现象
  * 若无外力干涉，将无法推进下去
- *  jstack -l jvm-pid 查看死锁
+ *  jstack -l （pid） 查看死锁
  * @author icatzfd
  * Created on 2020/8/21 10:34.
  */

@@ -1,9 +1,7 @@
 package cn.sdu.leetcode.string;
 
-import org.opencv.core.Mat;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 字符串
@@ -26,5 +24,32 @@ public class Solution {
             map.put(s.charAt(end), end + 1);
         }
         return res;
+    }
+
+    //49 字母异位词分组
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> res=new ArrayList<>();
+        HashMap<String,List<String>> map=new HashMap<>();
+
+        for(String str:strs){
+            char[] chars=str.toCharArray();
+            Arrays.sort(chars);
+            String key=String.valueOf(chars);
+
+            if(map.containsKey(key)){
+                List<String> temp=map.get(key);
+                temp.add(str);
+                map.put(key,temp);
+            }else {
+                List<String> temp=new ArrayList<>();
+                temp.add(str);
+                map.put(key,temp);
+            }
+        }
+        return new ArrayList<>(map.values());
+    }
+
+    public static void main(String[] args) {
+
     }
 }

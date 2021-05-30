@@ -7,10 +7,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="my-jvm-juc" />
+        <module name="myspring" />
         <module name="my-juc" />
         <module name="my-spring" />
         <module name="my-leetcode" />
-        <module name="my-jvm-juc" />
+        <module name="wangwenjun" />
         <module name="my-jvm" />
       </profile>
     </annotationProcessing>
@@ -21,6 +23,7 @@
       <module name="my-code" options="" />
       <module name="my-leetcode" options="" />
       <module name="my-spring" options="-parameters" />
+      <module name="myspring" options="-parameters" />
     </option>
   </component>
 </project>

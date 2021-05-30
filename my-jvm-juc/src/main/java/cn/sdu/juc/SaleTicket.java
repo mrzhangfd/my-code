@@ -45,13 +45,8 @@ public class SaleTicket {
             }
         },"B").start();
 
-        new Thread(new FutureTask<>(new Callable<Object>() {
-            @Override
-            public Object call() throws Exception {
-                System.out.println("11111111");
-                return null;
-            }
-        }));
+
+
 
        /* new Thread(()->{
             for(int i=0;i<50;i++){

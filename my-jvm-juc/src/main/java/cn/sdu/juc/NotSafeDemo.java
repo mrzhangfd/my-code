@@ -28,7 +28,6 @@ public class NotSafeDemo {
 
     private static void mapNotSafe() {
         Map<String,String> map=new ConcurrentHashMap();//Collections.synchronizedMap();
-
         //三个线程 写数据
         for (int i = 1; i <= 30; i++) {
             new Thread(() -> {

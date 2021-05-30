@@ -12,6 +12,7 @@ import java.util.Map;
  * Created on 2020/9/17 10:06.
  */
 public class Solution {
+    //距离为k的
     public List<Integer> distanceK(TreeNode root, TreeNode target, int K) {
         Map<TreeNode, TreeNode> map = new HashMap<>();
         map.put(root, null);
@@ -53,5 +54,61 @@ public class Solution {
         traversal(map, root.right);
     }
 
+    //反转二叉树
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) {
+            return root;
+        }
+        TreeNode left = root.left;
+        TreeNode right = root.right;
+        root.left = invertTree(right);
+        root.right = invertTree(left);
+        return root;
+
+
+    }
+
+    // 路径总和3
+    public int pathSum(TreeNode root, int sum) {
+        return 1;
+    }
+
+    // 617 合并二叉树
+    public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
+        if (t1 == null && t2 == null) {
+            return null;
+        }
+        if (t1 == null) {
+            return t2;
+        }
+        if (t2 == null) {
+            return t1;
+        }
+
+        t1.left = mergeTrees(t1.left, t2.left);
+        t1.right = mergeTrees(t1.right, t2.right);
+        t1.val = t1.val + t2.val;
+        return t1;
+    }
+
+    //543  二叉树的直径
+    public int resDiameter;
+    public int diameterOfBinaryTree(TreeNode root) {
+        if(root==null){
+            return 0;
+        }
+        getDepth(root);
+        return resDiameter;
+    }
+
+    private int getDepth(TreeNode root) {
+        if(root==null){
+            return 0;
+        }
+        int left=getDepth(root.left);
+        int right=getDepth(root.right);
+        resDiameter=Math.max(resDiameter,left+right);
+        return Math.max(left,right)+1;
+    }
 
 }
